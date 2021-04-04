@@ -1,0 +1,7 @@
+namespace DenikProject.DQEmulation.Model
+{
+    public interface IEnemy : ICreature, IDamageable, IDieable
+    {
+
+    }
+}
