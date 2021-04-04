@@ -32,7 +32,7 @@ namespace DenikProject.DQEmulation.View
 
                     // ここはもう少しスマートにしたい
                     _buttonAttack.interactable = false;
-                    await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
+                    await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND), cancellationToken: cts.Token);
                     _buttonAttack.interactable = true;
                 }))
                 .AddTo(this);
