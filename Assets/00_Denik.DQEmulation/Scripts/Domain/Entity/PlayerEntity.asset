@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b698782b50a490793f51e793fa80394, type: 3}
   m_Name: PlayerEntity
   m_EditorClassIdentifier: 
-  _name: "\u30C7\u30CB\u30AD"
+  _name: "\u52C7\u8005"
+  _figure: {fileID: 21300000, guid: 422bf9fdea71fae4b9ae86bc25b67fb2, type: 3}
   _maxHitPoint: 500
   _damagePower: 50
   _healPower: 100

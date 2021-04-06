@@ -1,14 +1,18 @@
 ﻿using System;
-using DenikProject.DQEmulation.Repository;
+using Denik.DQEmulation.Repository;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace DenikProject.DQEmulation.Model
+namespace Denik.DQEmulation.Model
 {
     public class EnemyModel : MonoBehaviour, IEnemy
     {
         public IReadOnlyReactiveProperty<int> HitPoint => _hitPoint;
         private ReactiveProperty<int> _hitPoint = new ReactiveProperty<int>();
+
+        public Sprite Figure => _figure;
+        private Sprite _figure;
 
         public int MaxHitPoint => _maxHitPoint;
         private int _maxHitPoint;
@@ -19,7 +23,7 @@ namespace DenikProject.DQEmulation.Model
         public int DamagePower => _damagePower;
         private int _damagePower;
 
-        private EnemyRepository _enemyRepository;
+        private EnemyResourceProvider _enemyResourceProvider;
 
         public IObservable<(string, string, int)> OnDamagedAsObservable() => _damagedSubject;
         private Subject<(string, string, int)> _damagedSubject = new Subject<(string, string, int)>();
@@ -29,11 +33,12 @@ namespace DenikProject.DQEmulation.Model
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(EnemyRepository enemyRepository)
+        private void Construct(EnemyResourceProvider enemyResourceProvider)
         {
-            _enemyRepository = enemyRepository;
-            var entity = _enemyRepository.EnemyEntity;
-            (_maxHitPoint, _enemyName, _damagePower) = (entity.MaxHitPoint, entity.Name, entity.DamagePower);
+            _enemyResourceProvider = enemyResourceProvider;
+            var entity = _enemyResourceProvider.EnemyEntity;
+            (_figure, _maxHitPoint, _enemyName, _damagePower)
+                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower);
             _hitPoint.Value = _maxHitPoint;
         }
 

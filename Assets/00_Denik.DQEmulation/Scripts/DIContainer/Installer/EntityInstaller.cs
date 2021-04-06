@@ -1,8 +1,8 @@
-using DenikProject.DQEmulation.Entity;
+using Denik.DQEmulation.Entity;
 using UnityEngine;
 using Zenject;
 
-namespace DenikProject.DQEmulation.Installer
+namespace Denik.DQEmulation.Installer
 {
     [CreateAssetMenu(fileName = "EntityInstaller", menuName = "Installers/EntityInstaller")]
     public class EntityInstaller : ScriptableObjectInstaller<EntityInstaller>

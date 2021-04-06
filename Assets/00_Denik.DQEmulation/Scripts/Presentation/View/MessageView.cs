@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DenikProject.DQEmulation.View
+namespace Denik.DQEmulation.View
 {
     public class MessageView : MonoBehaviour
     {

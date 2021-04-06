@@ -1,13 +1,13 @@
-using DenikProject.DQEmulation.Entity;
-using DenikProject.DQEmulation.Model;
-using DenikProject.DQEmulation.Presenter;
-using DenikProject.DQEmulation.Repository;
-using DenikProject.DQEmulation.View;
+using Denik.DQEmulation.Entity;
+using Denik.DQEmulation.Model;
+using Denik.DQEmulation.Presenter;
+using Denik.DQEmulation.Repository;
+using Denik.DQEmulation.View;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace DenikProject.DQEmulation.LifetimeScopes
+namespace Denik.DQEmulation.LifetimeScopes
 {
     public class DQEmulationLifetimeScope : LifetimeScope
     {
@@ -31,8 +31,8 @@ namespace DenikProject.DQEmulation.LifetimeScopes
             builder.RegisterInstance(_playerEntity);
 
             // Resource Provider
-            builder.Register<EnemyRepository>(Lifetime.Scoped);
-            builder.Register<PlayerRepository>(Lifetime.Scoped);
+            builder.Register<EnemyResourceProvider>(Lifetime.Scoped);
+            builder.Register<PlayerResourceProvider>(Lifetime.Scoped);
 
             // Model
             builder.RegisterComponent(_enemyModel).AsImplementedInterfaces().AsSelf();

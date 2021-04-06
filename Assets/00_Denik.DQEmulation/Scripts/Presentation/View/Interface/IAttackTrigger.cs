@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace DenikProject.DQEmulation.View
+namespace Denik.DQEmulation.View
 {
     public interface IAttackTrigger
     {

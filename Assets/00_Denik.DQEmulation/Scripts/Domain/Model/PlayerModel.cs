@@ -1,14 +1,17 @@
 ﻿using System;
-using DenikProject.DQEmulation.Repository;
+using Denik.DQEmulation.Repository;
 using UniRx;
 using UnityEngine;
 
-namespace DenikProject.DQEmulation.Model
+namespace Denik.DQEmulation.Model
 {
     public class PlayerModel : MonoBehaviour, IPlayer
     {
         public IReadOnlyReactiveProperty<int> HitPoint => _hitPoint;
         private ReactiveProperty<int> _hitPoint = new ReactiveProperty<int>();
+
+        public Sprite Figure => _figure;
+        private Sprite _figure;
 
         public int MaxHitPoint => _maxHitPoint;
         private int _maxHitPoint;
@@ -31,16 +34,16 @@ namespace DenikProject.DQEmulation.Model
         public IObservable<(string, string)> OnDiedAsObservable() => _diedSubject;
         private Subject<(string, string)> _diedSubject = new Subject<(string, string)>();
 
-        private PlayerRepository _playerRepository;
+        private PlayerResourceProvider _playerResourceProvider;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(PlayerRepository playerRepository)
+        private void Construct(PlayerResourceProvider playerResourceProvider)
         {
-            _playerRepository = playerRepository;
-            var entity = _playerRepository.PlayerEntity;
-            (_maxHitPoint, _playerName, _damagePower, _healPower) =
-                (entity.MaxHitPoint, entity.Name, entity.DamagePower, entity.HealPower);
+            _playerResourceProvider = playerResourceProvider;
+            var entity = _playerResourceProvider.PlayerEntity;
+            (_figure, _maxHitPoint, _playerName, _damagePower, _healPower)
+                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower, entity.HealPower);
             _hitPoint.Value = _maxHitPoint;
         }
 

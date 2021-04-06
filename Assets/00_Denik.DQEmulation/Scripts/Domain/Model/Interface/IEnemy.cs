@@ -1,4 +1,4 @@
-namespace DenikProject.DQEmulation.Model
+namespace Denik.DQEmulation.Model
 {
     public interface IEnemy : ICreature, IDamageable, IDieable
     {

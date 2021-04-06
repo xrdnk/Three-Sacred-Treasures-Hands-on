@@ -1,15 +1,15 @@
-﻿using DenikProject.DQEmulation.Entity;
+﻿using Denik.DQEmulation.Entity;
 
-namespace DenikProject.DQEmulation.Repository
+namespace Denik.DQEmulation.Repository
 {
-    public class EnemyRepository
+    public class EnemyResourceProvider
     {
         public EnemyEntity EnemyEntity => _enemyEntity;
         private EnemyEntity _enemyEntity;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private EnemyRepository(EnemyEntity enemyEntity)
+        private EnemyResourceProvider(EnemyEntity enemyEntity)
         {
             _enemyEntity = enemyEntity;
         }

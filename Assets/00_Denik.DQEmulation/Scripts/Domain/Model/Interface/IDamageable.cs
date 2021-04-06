@@ -1,6 +1,6 @@
 using System;
 
-namespace DenikProject.DQEmulation.Model
+namespace Denik.DQEmulation.Model
 {
     public interface IDamageable
     {

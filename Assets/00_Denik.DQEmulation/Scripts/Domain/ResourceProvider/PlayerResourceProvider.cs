@@ -1,15 +1,15 @@
-﻿using DenikProject.DQEmulation.Entity;
+﻿using Denik.DQEmulation.Entity;
 
-namespace DenikProject.DQEmulation.Repository
+namespace Denik.DQEmulation.Repository
 {
-    public class PlayerRepository
+    public class PlayerResourceProvider
     {
         public PlayerEntity PlayerEntity => _playerEntity;
         private PlayerEntity _playerEntity;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private PlayerRepository(PlayerEntity playerEntity)
+        private PlayerResourceProvider(PlayerEntity playerEntity)
         {
             _playerEntity = playerEntity;
         }

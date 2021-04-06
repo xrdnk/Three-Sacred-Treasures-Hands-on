@@ -1,11 +1,11 @@
-using DenikProject.DQEmulation.Model;
-using DenikProject.DQEmulation.Presenter;
-using DenikProject.DQEmulation.Repository;
-using DenikProject.DQEmulation.View;
+using Denik.DQEmulation.Model;
+using Denik.DQEmulation.Presenter;
+using Denik.DQEmulation.Repository;
+using Denik.DQEmulation.View;
 using UnityEngine;
 using Zenject;
 
-namespace DenikProject.DQEmulation.Installer
+namespace Denik.DQEmulation.Installer
 {
     public class DQEmulatorInstaller : MonoInstaller
     {
@@ -21,8 +21,8 @@ namespace DenikProject.DQEmulation.Installer
         public override void InstallBindings()
         {
             // Resource Provider
-            Container.Bind(typeof(EnemyRepository)).AsCached();
-            Container.Bind(typeof(PlayerRepository)).AsCached();
+            Container.Bind(typeof(EnemyResourceProvider)).AsCached();
+            Container.Bind(typeof(PlayerResourceProvider)).AsCached();
             // 以下と同じ
             // Container.Bind<PlayerRepository>().AsCached();
 

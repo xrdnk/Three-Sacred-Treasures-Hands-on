@@ -1,21 +1,23 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DenikProject.DQEmulation.Consts;
+using Denik.DQEmulation.Consts;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DenikProject.DQEmulation.View
+namespace Denik.DQEmulation.View
 {
     public class EnemyView : MonoBehaviour, IAttackTrigger
     {
         [SerializeField]
         private Button _buttonAttack = default;
         [SerializeField]
-        private Text _TextName = default;
+        private Text _textName = default;
         [SerializeField]
-        private Text _TextHp = default;
+        private Text _textHp = default;
+        [SerializeField]
+        private Image _imageFigure = default;
 
         private CancellationTokenSource cts = new CancellationTokenSource();
 
@@ -39,17 +41,17 @@ namespace DenikProject.DQEmulation.View
 
         public void DisplayName(string enemyName)
         {
-            _TextName.text = string.Empty;
-            _TextName.text = $"{enemyName}";
+            _textName.text = string.Empty;
+            _textName.text = $"{enemyName}";
         }
 
         public void DisplayHp(int hp)
         {
-            _TextHp.text = string.Empty;
-            _TextHp.text = $"HP : {hp}";
+            _textHp.text = string.Empty;
+            _textHp.text = $"HP : {hp}";
         }
 
-        public async void DisplayAttack(string enemyName, string playerName, int damagePoint)
+        public async void DisplayAttacked(string enemyName, string playerName, int damagePoint)
         {
             Debug.Log($"{enemyName} のこうげき！");
             await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND), cancellationToken: cts.Token);
@@ -60,6 +62,11 @@ namespace DenikProject.DQEmulation.View
         {
             Debug.Log($"{playerName} は {enemyName} を倒した！");
             gameObject.SetActive(false);
+        }
+
+        public void DisplayFigure(Sprite figure)
+        {
+            _imageFigure.sprite = figure;
         }
     }
 }

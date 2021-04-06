@@ -1,4 +1,4 @@
-﻿namespace DenikProject.DQEmulation.Consts
+﻿namespace Denik.DQEmulation.Consts
 {
     public static class DQEmulatorConsts
     {
