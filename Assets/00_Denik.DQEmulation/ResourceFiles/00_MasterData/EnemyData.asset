@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b698782b50a490793f51e793fa80394, type: 3}
-  m_Name: PlayerEntity
+  m_Script: {fileID: 11500000, guid: 54b8f37ddeeb34b4697d5bdc98c66589, type: 3}
+  m_Name: EnemyData
   m_EditorClassIdentifier: 
-  _name: "\u52C7\u8005"
-  _figure: {fileID: 21300000, guid: 422bf9fdea71fae4b9ae86bc25b67fb2, type: 3}
-  _maxHitPoint: 500
-  _damagePower: 50
-  _healPower: 100
+  _enemyEntities:
+  - _name: "\u9B54\u738B"
+    _figure: {fileID: 21300000, guid: 7ae248008d391234e861948128c8ce14, type: 3}
+    _damagePower: 100
+    _maxHitPoint: 500

@@ -4,14 +4,14 @@ namespace Denik.DQEmulation.Repository
 {
     public class PlayerResourceProvider
     {
-        public PlayerEntity PlayerEntity => _playerEntity;
-        private PlayerEntity _playerEntity;
+        public PlayerData PlayerData => _playerData;
+        private PlayerData _playerData;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private PlayerResourceProvider(PlayerEntity playerEntity)
+        private PlayerResourceProvider(PlayerData playerData)
         {
-            _playerEntity = playerEntity;
+            _playerData = playerData;
         }
     }
 }

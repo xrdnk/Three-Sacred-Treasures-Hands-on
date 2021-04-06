@@ -4,14 +4,14 @@ namespace Denik.DQEmulation.Repository
 {
     public class EnemyResourceProvider
     {
-        public EnemyEntity EnemyEntity => _enemyEntity;
-        private EnemyEntity _enemyEntity;
+        public EnemyData EnemyData => _enemyData;
+        private EnemyData _enemyData;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private EnemyResourceProvider(EnemyEntity enemyEntity)
+        private EnemyResourceProvider(EnemyData enemyData)
         {
-            _enemyEntity = enemyEntity;
+            _enemyData = enemyData;
         }
     }
 }

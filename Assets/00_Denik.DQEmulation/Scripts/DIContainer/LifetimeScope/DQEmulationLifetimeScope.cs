@@ -12,9 +12,9 @@ namespace Denik.DQEmulation.LifetimeScopes
     public class DQEmulationLifetimeScope : LifetimeScope
     {
         [SerializeField]
-        private PlayerEntity _playerEntity = default;
+        private PlayerData playerData = default;
         [SerializeField]
-        private EnemyEntity _enemyEntity = default;
+        private EnemyData enemyData = default;
         [SerializeField]
         private PlayerModel _playerModel = default;
         [SerializeField]
@@ -27,8 +27,8 @@ namespace Denik.DQEmulation.LifetimeScopes
         protected override void Configure(IContainerBuilder builder)
         {
             // Entity
-            builder.RegisterInstance(_enemyEntity);
-            builder.RegisterInstance(_playerEntity);
+            builder.RegisterInstance(enemyData);
+            builder.RegisterInstance(playerData);
 
             // Resource Provider
             builder.Register<EnemyResourceProvider>(Lifetime.Scoped);

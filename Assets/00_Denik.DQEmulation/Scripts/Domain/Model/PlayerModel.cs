@@ -41,7 +41,7 @@ namespace Denik.DQEmulation.Model
         private void Construct(PlayerResourceProvider playerResourceProvider)
         {
             _playerResourceProvider = playerResourceProvider;
-            var entity = _playerResourceProvider.PlayerEntity;
+            var entity = _playerResourceProvider.PlayerData.PlayerEntities[0];
             (_figure, _maxHitPoint, _playerName, _damagePower, _healPower)
                 = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower, entity.HealPower);
             _hitPoint.Value = _maxHitPoint;

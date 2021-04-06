@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b8f37ddeeb34b4697d5bdc98c66589, type: 3}
-  m_Name: EnemyEntity
+  m_Script: {fileID: 11500000, guid: ef763a930a5e71c4b825379f9adb3114, type: 3}
+  m_Name: MasterDataInstaller
   m_EditorClassIdentifier: 
-  _name: "\u9B54\u738B"
-  _figure: {fileID: 21300000, guid: 7ae248008d391234e861948128c8ce14, type: 3}
-  _damagePower: 100
-  _maxHitPoint: 1000
+  playerData: {fileID: 11400000, guid: 1cd0e9fad473c3a4abf0bebca388432c, type: 2}
+  enemyData: {fileID: 11400000, guid: d6b35c01b4b21c549b4e8c610b18f637, type: 2}

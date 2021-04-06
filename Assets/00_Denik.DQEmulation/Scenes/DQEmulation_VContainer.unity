@@ -745,8 +745,8 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _playerEntity: {fileID: 11400000, guid: e590447dc80a96844a2c1af68f7eec2c, type: 2}
-  _enemyEntity: {fileID: 11400000, guid: 6c322408777bfd84eb51590651375023, type: 2}
+  playerData: {fileID: 11400000, guid: 1cd0e9fad473c3a4abf0bebca388432c, type: 2}
+  enemyData: {fileID: 11400000, guid: d6b35c01b4b21c549b4e8c610b18f637, type: 2}
   _playerModel: {fileID: 836697006}
   _enemyModel: {fileID: 320688619}
   _playerView: {fileID: 1439030578}

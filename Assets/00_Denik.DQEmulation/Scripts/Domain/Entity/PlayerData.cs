@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Denik.DQEmulation.Entity
 {
-    [CreateAssetMenu(fileName = "PlayerEntity", menuName = "DQEmulation/PlayerEntity")]
-    public class PlayerEntity : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(PlayerData), menuName = "DQEmulation/" + nameof(PlayerData))]
+    public class PlayerData : ScriptableObject
+    {
+        [SerializeField]
+        private List<PlayerEntity> _playerEntities;
+
+        public List<PlayerEntity> PlayerEntities => _playerEntities;
+    }
+
+    [Serializable]
+    public class PlayerEntity
     {
         [SerializeField]
         private string _name;

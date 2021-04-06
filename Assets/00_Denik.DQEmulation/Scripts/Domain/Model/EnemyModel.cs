@@ -35,7 +35,7 @@ namespace Denik.DQEmulation.Model
         private void Construct(EnemyResourceProvider enemyResourceProvider)
         {
             _enemyResourceProvider = enemyResourceProvider;
-            var entity = _enemyResourceProvider.EnemyEntity;
+            var entity = _enemyResourceProvider.EnemyData.EnemyEntities[0];
             (_figure, _maxHitPoint, _enemyName, _damagePower)
                 = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower);
             _hitPoint.Value = _maxHitPoint;
