@@ -32,15 +32,12 @@ namespace Denik.DQEmulation.View
         private void Awake()
         {
             _buttonAttack.OnClickAsObservable()
-                .Subscribe(_ => UniTask.Void(async () =>
-                {
-                    _attackTriggerSubject.OnNext(Unit.Default);
+                .Subscribe(_ => _attackTriggerSubject.OnNext(Unit.Default))
+                .AddTo(this);
 
-                    // ここはもう少しスマートにしたい
-                    _buttonAttack.interactable = false;
-                    await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND), cancellationToken: cts.Token);
-                    _buttonAttack.interactable = true;
-                }))
+            // ボタン押下後，1秒間ボタン無効にする
+            _buttonAttack
+                .BindToOnClick(_ => Observable.Timer(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND)).AsUnitObservable())
                 .AddTo(this);
 
             _buttonHeal.OnClickAsObservable()
