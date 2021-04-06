@@ -2,7 +2,6 @@
 using Denik.DQEmulation.Repository;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Denik.DQEmulation.Model
 {
@@ -26,10 +25,10 @@ namespace Denik.DQEmulation.Model
         private EnemyResourceProvider _enemyResourceProvider;
 
         public IObservable<(string, string, int)> OnDamagedAsObservable() => _damagedSubject;
-        private Subject<(string, string, int)> _damagedSubject = new Subject<(string, string, int)>();
+        private readonly Subject<(string playerName, string enemyName, int damagePoint)> _damagedSubject = new Subject<(string, string, int)>();
 
         public IObservable<(string, string)> OnDiedAsObservable() => _diedSubject;
-        private Subject<(string, string)> _diedSubject = new Subject<(string, string)>();
+        private readonly Subject<(string enemyName, string playerName)> _diedSubject = new Subject<(string enemyName, string playerName)>();
 
         [Zenject.Inject]
         [VContainer.Inject]
