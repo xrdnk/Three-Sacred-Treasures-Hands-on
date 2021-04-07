@@ -1,6 +1,7 @@
 using Denik.DQEmulation.Model;
 using Denik.DQEmulation.Presenter;
 using Denik.DQEmulation.Repository;
+using Denik.DQEmulation.Service;
 using Denik.DQEmulation.View;
 using UnityEngine;
 using Zenject;
@@ -17,12 +18,15 @@ namespace Denik.DQEmulation.Installer
         private PlayerView _playerView = default;
         [SerializeField]
         private EnemyView _enemyView = default;
+        [SerializeField]
+        private BGMPlayer _bgmPlayer = default;
 
         public override void InstallBindings()
         {
             // Resource Provider
             Container.Bind(typeof(EnemyResourceProvider)).AsCached();
             Container.Bind(typeof(PlayerResourceProvider)).AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(BGMResourceProvider)).AsCached();
             // 以下と同じ
             // Container.Bind<PlayerRepository>().AsCached();
 
@@ -33,6 +37,9 @@ namespace Denik.DQEmulation.Installer
             // View
             Container.BindInterfacesAndSelfTo(typeof(EnemyView)).FromInstance(_enemyView).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerView)).FromInstance(_playerView).AsCached();
+
+            // Service
+            Container.BindInterfacesAndSelfTo(typeof(BGMPlayer)).FromInstance(_bgmPlayer).AsCached();
 
             // Presenter
             Container.Bind(typeof(DQEmulationPresenter), typeof(IInitializable))

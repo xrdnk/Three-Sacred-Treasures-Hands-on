@@ -8,14 +8,17 @@ namespace Denik.DQEmulation.Installer
     public class MasterDataInstaller : ScriptableObjectInstaller<MasterDataInstaller>
     {
         [SerializeField]
-        private PlayerData playerData = default;
+        private PlayerData _playerData = default;
         [SerializeField]
-        private EnemyData enemyData = default;
+        private EnemyData _enemyData = default;
+        [SerializeField]
+        private BGMData bgmData = default;
 
         public override void InstallBindings()
         {
-            Container.Bind<PlayerData>().FromInstance(playerData).AsCached();
-            Container.Bind<EnemyData>().FromInstance(enemyData).AsCached();
+            Container.Bind<PlayerData>().FromInstance(_playerData).AsCached();
+            Container.Bind<EnemyData>().FromInstance(_enemyData).AsCached();
+            Container.Bind<BGMData>().FromInstance(bgmData).AsCached();
         }
     }
 }

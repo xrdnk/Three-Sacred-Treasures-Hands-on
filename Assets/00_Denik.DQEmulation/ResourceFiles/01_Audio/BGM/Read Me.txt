@@ -1,0 +1,6 @@
+
+The data in the "Assets for Unity" folder is for use in game development on Unity.
+It is the same file name as ogg for RPG Maker, but please be careful not to overwrite it because its contents are different.
+
+「Assets for Unity」フォルダ内のデータはUnityでのゲーム開発で使用するものです。
+ツクール用のoggファイルと名前が同じでも内容が異なっているため、上書きしないようご注意ください。

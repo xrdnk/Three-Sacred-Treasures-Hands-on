@@ -1,5 +1,6 @@
 ﻿using System;
 using Denik.DQEmulation.Model;
+using Denik.DQEmulation.Service;
 using Denik.DQEmulation.View;
 using UniRx;
 
@@ -11,18 +12,21 @@ namespace Denik.DQEmulation.Presenter
         private EnemyModel _enemyModel;
         private PlayerView _playerView;
         private EnemyView _enemyView;
+        private BGMPlayer _bgmPlayer;
 
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         [VContainer.Inject]
         [Zenject.Inject]
         private void Construct
-            (PlayerModel playerModel, EnemyModel enemyModel, PlayerView playerView, EnemyView enemyView)
+            (PlayerModel playerModel, EnemyModel enemyModel, PlayerView playerView, EnemyView enemyView,
+            BGMPlayer bgmPlayer)
         {
             _playerModel = playerModel;
             _enemyModel = enemyModel;
             _playerView = playerView;
             _enemyView = enemyView;
+            _bgmPlayer = bgmPlayer;
         }
 
         /// <summary>
@@ -83,6 +87,8 @@ namespace Denik.DQEmulation.Presenter
                 .Subscribe(_ => _playerModel.Heal(_playerModel.HealPower));
             _playerView.DisplayName(_playerModel.Name);
             _playerView.DisplayFigure(_playerModel.Figure);
+
+            _bgmPlayer.Play();
         }
 
         public void Dispose()
