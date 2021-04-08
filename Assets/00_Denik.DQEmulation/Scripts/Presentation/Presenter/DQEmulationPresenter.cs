@@ -93,7 +93,7 @@ namespace Denik.DQEmulation.Presenter
 
         public void Dispose()
         {
-            _compositeDisposable?.Dispose();
+            _compositeDisposable.Dispose();
         }
     }
 }

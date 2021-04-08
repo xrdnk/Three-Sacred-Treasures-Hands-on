@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Denik.DQEmulation.Entity;
 using Denik.DQEmulation.Repository;
+using UniRx;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Denik.DQEmulation.Service
 {
@@ -15,6 +17,9 @@ namespace Denik.DQEmulation.Service
 
         private BGMResourceProvider _bgmResourceProvider;
         private BGMData _bgmData;
+
+        public IReadOnlyReactiveProperty<float> Volume => _volume;
+        private IReadOnlyReactiveProperty<float> _volume;
 
         [Zenject.Inject]
         [VContainer.Inject]
@@ -38,6 +43,8 @@ namespace Denik.DQEmulation.Service
                 var audioName = _bgmData.AudioEntities[i].Name;
                 _NameToIndex.Add(audioName, i);
             }
+
+            _volume = _audioSource.ObserveEveryValueChanged(x => x.volume).ToReactiveProperty();
         }
 
         public void Play(string audioName)
@@ -58,6 +65,11 @@ namespace Denik.DQEmulation.Service
         public void Stop()
         {
             _audioSource.Stop();
+        }
+
+        public void AdjustVolume(float volumeRate)
+        {
+            _audioSource.volume = volumeRate;
         }
 
         private void PlayInternal(int audioIndex = 0)

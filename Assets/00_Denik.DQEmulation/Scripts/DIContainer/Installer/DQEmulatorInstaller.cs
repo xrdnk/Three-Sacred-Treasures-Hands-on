@@ -20,6 +20,8 @@ namespace Denik.DQEmulation.Installer
         private EnemyView _enemyView = default;
         [SerializeField]
         private BGMPlayer _bgmPlayer = default;
+        [SerializeField]
+        private PlayerSettingsView _playerSettingsView = default;
 
         public override void InstallBindings()
         {
@@ -37,6 +39,7 @@ namespace Denik.DQEmulation.Installer
             // View
             Container.BindInterfacesAndSelfTo(typeof(EnemyView)).FromInstance(_enemyView).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerView)).FromInstance(_playerView).AsCached();
+            Container.Bind(typeof(PlayerSettingsView)).FromInstance(_playerSettingsView).AsCached();
 
             // Service
             Container.BindInterfacesAndSelfTo(typeof(BGMPlayer)).FromInstance(_bgmPlayer).AsCached();
@@ -44,6 +47,9 @@ namespace Denik.DQEmulation.Installer
             // Presenter
             Container.Bind(typeof(DQEmulationPresenter), typeof(IInitializable))
                 .To(typeof(DQEmulationPresenter))
+                .AsCached();
+            Container.Bind(typeof(PlayerSettingsPresenter), typeof(IInitializable))
+                .To(typeof(PlayerSettingsPresenter))
                 .AsCached();
         }
     }
