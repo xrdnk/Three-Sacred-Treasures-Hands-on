@@ -1,0 +1,257 @@
+﻿@startuml
+
+skinparam DefaultFontName JetBrains Mono
+
+skinparam class {
+  ArrowColor Black
+  ActorBorderColor Black
+}
+
+package DQEmulation #yellow
+{
+    package Domain #00FF00
+    {
+        package Entity <<DataBase>> #00FF66
+        {
+            interface IAudioEntity
+            {
+                Name : string
+                Clip : AudioClip
+            }
+
+            class PlayerEntity
+            {
+                Name : string
+                Figure : Sprite
+                MaxHitPoint : int
+                DamagePower : int
+                HealPower : int
+            }
+
+            class EnemyEntity
+            {
+                Name : string
+                Figure : Sprite
+                MaxHitPoint : int
+                DamagePower : int
+            }
+
+            class BGMEntity
+
+            class PlayerData<ScriptableObject>
+
+            class EnemyData<ScriptableObject>
+
+            class BGMData<ScriptableObject>
+        }
+
+        package Repository #yellowgreen
+        {
+            interface IPlayerRepository
+            {
+                + PlayerEntities : List<PlayerEntity>
+                + GetPlayerEntity (int) : PlayerEntity
+            }
+
+            interface IEnemyRepository
+            {
+                + EnemyEntities : List<EnemyEntity>
+                + GetEnemyEntity (int) : EnemyEntity
+            }
+
+            interface IBGMRepository
+            {
+                + BGMEntities : List<BGMEntity>
+                + GetBGMEntity(int) : BGMEntity
+                + Volume : float
+            }
+
+            class PlayerRepository
+            {
+                - PlayerData
+            }
+
+            class EnemyRepository
+            {
+                - EnemyData
+            }
+
+            class BGMRepository
+            {
+                - BGMData
+            }
+        }
+
+        package Model #00CC00
+        {
+            interface ICreature
+            {
+                Name : string
+                Figure : Sprite
+                HitPoint : IRORP<int>
+                MaxHitPoint : int
+            }
+
+            interface IDamageable
+            {
+                DamagePower : int
+                OnDamageAsObservable() : IO<(string, string, int)>
+                TakeDamage(string, int)
+            }
+
+            interface IDieable
+            {
+                OnDiedAsObservable() : IO<(string , string)>
+            }
+
+            interface IHealable
+            {
+                HealPower : int
+                OnHealedAsObservable() : IO<(string, int)>
+                Heal(int)
+            }
+
+            interface IEnemy
+
+            interface IPlayer
+
+            class PlayerModel
+
+            class EnemyModel
+        }
+
+        package UseCase
+        {
+            interface IBGMPlayer
+            {
+                Volume : IRORP<float>
+                Play(string)
+                Play(int)
+                Stop()
+                AdjustVolume(float)
+            }
+
+            class BGMPlayer
+        }
+    }
+
+    package Presentation #00FFFF
+    {
+        package View #8EB8FF
+        {
+            class PlayerView
+            {
+                + DisplayName(string)
+                + DisplayHp(int)
+                + DisplayAttacked(string, string, int)
+                + DisplayDied(string, string)
+                + DisplayHealed(string, int)
+                + DisplayFigure(Sprite)
+            }
+
+            class EnemyView
+            {
+                + DisplayName(string)
+                + DisplayHp(int)
+                + DisplayAttacked(string, string, int)
+                + DisplayDied(string, string)
+                + DisplayFigure(Sprite)
+            }
+
+            class MessageView
+            {
+            }
+
+            class PlayerSettingsView
+            {
+                + AdjustSlider(float)
+            }
+        }
+
+        package Presenter #136FFF
+        {
+            class DQEmulationPresenter
+
+            class PlayerSettingsPresenter
+        }
+
+        package ViewNavigator #DCC2FF
+        {
+            class ViewNavigator
+        }
+    }
+}
+
+'Domain
+
+''Entity
+
+PlayerData "1" *-up- "0..*" PlayerEntity
+EnemyData "1" *-up- "0..*" EnemyEntity
+BGMData "1" *-up- "0..*" BGMEntity
+IAudioEntity <|.ri. BGMEntity
+
+''Repository
+
+IPlayerRepository <|.up. PlayerRepository
+PlayerData <.. PlayerRepository
+
+IEnemyRepository <|.up. EnemyRepository
+EnemyData <. EnemyRepository
+
+IBGMRepository <|.up. BGMRepository
+BGMData <.. BGMRepository
+
+''Model
+
+'''IPlayer
+
+ICreature <|.up. IPlayer
+IDamageable <|.up. IPlayer
+IDieable <|.up. IPlayer
+IHealable <|.ri. IPlayer
+
+'''IEnemy
+
+ICreature <|.up. IEnemy
+IDamageable <|.up. IEnemy
+IDieable <|.up. IEnemy
+
+'''PlayerModel
+
+IPlayerRepository <.. PlayerModel
+IPlayer <|.up. PlayerModel
+
+'''EnemyModel
+
+IEnemyRepository <.. EnemyModel
+IEnemy <|.up. EnemyModel
+
+'' Service
+
+IBGMRepository <.up. BGMPlayer
+IBGMPlayer <|.le. BGMPlayer
+
+' Presentation
+
+'' Presenter
+
+PlayerView <.up. DQEmulationPresenter
+PlayerModel <.le. DQEmulationPresenter
+EnemyView <.up. DQEmulationPresenter
+EnemyModel <.le. DQEmulationPresenter
+MessageView <.up. DQEmulationPresenter
+
+PlayerSettingsView <.. PlayerSettingsPresenter
+IBGMPlayer <.. PlayerSettingsPresenter
+
+'' View
+
+'' ViewNavigator
+
+PlayerView <.. ViewNavigator
+EnemyView <.. ViewNavigator
+MessageView <.. ViewNavigator
+PlayerSettingsView <.. ViewNavigator
+
+@enduml
