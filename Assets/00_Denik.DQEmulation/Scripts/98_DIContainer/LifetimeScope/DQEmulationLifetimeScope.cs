@@ -31,8 +31,8 @@ namespace Denik.DQEmulation.LifetimeScopes
             builder.RegisterInstance(playerData);
 
             // Resource Provider
-            builder.Register<EnemyResourceProvider>(Lifetime.Scoped);
-            builder.Register<PlayerResourceProvider>(Lifetime.Scoped);
+            builder.Register<EnemyRepository>(Lifetime.Scoped);
+            builder.Register<PlayerRepository>(Lifetime.Scoped);
 
             // Model
             builder.RegisterComponent(_enemyModel).AsImplementedInterfaces().AsSelf();

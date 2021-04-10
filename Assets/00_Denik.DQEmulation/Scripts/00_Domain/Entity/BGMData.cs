@@ -18,7 +18,7 @@ namespace Denik.DQEmulation.Entity
     }
 
     [Serializable]
-    public class AudioEntity
+    public class AudioEntity : IAudioEntity
     {
         [SerializeField]
         private string _name;
@@ -27,6 +27,12 @@ namespace Denik.DQEmulation.Entity
 
         public string Name => _name;
         public AudioClip Clip => _clip;
+    }
+
+    public interface IAudioEntity
+    {
+        string Name { get; }
+        AudioClip Clip { get; }
     }
 
     public interface IAudioData

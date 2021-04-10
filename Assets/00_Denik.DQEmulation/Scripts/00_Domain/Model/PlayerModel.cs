@@ -34,26 +34,17 @@ namespace Denik.DQEmulation.Model
         public IObservable<(string, string)> OnDiedAsObservable() => _diedSubject;
         private Subject<(string, string)> _diedSubject = new Subject<(string, string)>();
 
-        private PlayerResourceProvider _playerResourceProvider;
+        private PlayerRepository _playerRepository;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(PlayerResourceProvider playerResourceProvider)
+        private void Construct(PlayerRepository playerRepository)
         {
-            _playerResourceProvider = playerResourceProvider;
-            var entity = _playerResourceProvider.PlayerData.PlayerEntities[0];
+            _playerRepository = playerRepository;
+            var entity = _playerRepository.PlayerEntities[0];
             (_figure, _maxHitPoint, _playerName, _damagePower, _healPower)
                 = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower, entity.HealPower);
             _hitPoint.Value = _maxHitPoint;
-        }
-
-        private void Awake()
-        {
-            // _maxHitPoint = _playerRepository.PlayerEntity.MaxHitPoint;
-            // _hitPoint.Value = _maxHitPoint;
-            // _playerName = _playerRepository.PlayerEntity.Name;
-            // _damagePower = _playerRepository.PlayerEntity.DamagePower;
-            // _healPower = _playerRepository.PlayerEntity.HealPower;
         }
 
         public void TakeDamage(string enemyName, int damagePoint)

@@ -2,7 +2,7 @@
 
 namespace Denik.DQEmulation.Service
 {
-    public interface IAudioPlayer
+    public interface IBGMPlayer
     {
         void Play(string audioName);
         void Play(int audioIndex);

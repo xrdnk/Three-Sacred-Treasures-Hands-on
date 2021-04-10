@@ -1,32 +1,28 @@
 using System.Collections.Generic;
 using System.Linq;
-using Denik.DQEmulation.Entity;
 using Denik.DQEmulation.Repository;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace Denik.DQEmulation.Service
 {
     [RequireComponent(typeof(AudioSource))]
-    public class BGMPlayer : MonoBehaviour, IAudioPlayer
+    public class BGMPlayer : MonoBehaviour, IBGMPlayer
     {
         private AudioSource _audioSource;
         private readonly Dictionary<string, int> _NameToIndex = new Dictionary<string, int>();
         private int _CurrentAudioIndex = -1;
 
-        private BGMResourceProvider _bgmResourceProvider;
-        private BGMData _bgmData;
+        private IBGMRepository _bgmRepository;
 
         public IReadOnlyReactiveProperty<float> Volume => _volume;
         private IReadOnlyReactiveProperty<float> _volume;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        public void Construct(BGMResourceProvider bgmResourceProvider)
+        public void Construct(IBGMRepository bgmRepository)
         {
-            _bgmResourceProvider = bgmResourceProvider;
-            _bgmData = _bgmResourceProvider.BGMData;
+            _bgmRepository = bgmRepository;
         }
 
         private void Awake()
@@ -36,11 +32,11 @@ namespace Denik.DQEmulation.Service
             _audioSource.mute = false;
             _audioSource.playOnAwake = false;
             _audioSource.loop = true;
-            _audioSource.volume = _bgmData.Volume;
+            _audioSource.volume = _bgmRepository.Volume;
 
-            for (var i = 0; i < _bgmData.AudioEntities.Count; i++)
+            for (var i = 0; i < _bgmRepository.BGMEntities.Count; i++)
             {
-                var audioName = _bgmData.AudioEntities[i].Name;
+                var audioName = _bgmRepository.BGMEntities[i].Name;
                 _NameToIndex.Add(audioName, i);
             }
 
@@ -74,13 +70,13 @@ namespace Denik.DQEmulation.Service
 
         private void PlayInternal(int audioIndex = 0)
         {
-            if (!_bgmData.AudioEntities.Any())
+            if (!_bgmRepository.BGMEntities.Any())
             {
                 Debug.LogError("Unable to play because no audio entity is set.", this);
                 return;
             }
 
-            if (audioIndex < 0 || _bgmData.AudioEntities.Count <= audioIndex)
+            if (audioIndex < 0 || _bgmRepository.BGMEntities.Count <= audioIndex)
             {
                 Debug.LogError("Unable to play because a non-existent index number was specified.", this);
             }
@@ -94,7 +90,7 @@ namespace Denik.DQEmulation.Service
             }
             else
             {
-                var clip = _bgmData.AudioEntities[audioIndex].Clip;
+                var clip = _bgmRepository.BGMEntities[audioIndex].Clip;
                 if(_audioSource.isPlaying) _audioSource.Stop();
                 _audioSource.clip = clip;
                 _audioSource.Play();

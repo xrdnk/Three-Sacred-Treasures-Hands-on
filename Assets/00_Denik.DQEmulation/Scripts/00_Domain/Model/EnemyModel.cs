@@ -22,7 +22,7 @@ namespace Denik.DQEmulation.Model
         public int DamagePower => _damagePower;
         private int _damagePower;
 
-        private EnemyResourceProvider _enemyResourceProvider;
+        private EnemyRepository _enemyRepository;
 
         public IObservable<(string, string, int)> OnDamagedAsObservable() => _damagedSubject;
         private readonly Subject<(string playerName, string enemyName, int damagePoint)> _damagedSubject = new Subject<(string, string, int)>();
@@ -32,22 +32,14 @@ namespace Denik.DQEmulation.Model
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(EnemyResourceProvider enemyResourceProvider)
+        private void Construct(EnemyRepository enemyRepository)
         {
-            _enemyResourceProvider = enemyResourceProvider;
-            var entity = _enemyResourceProvider.EnemyData.EnemyEntities[0];
+            _enemyRepository = enemyRepository;
+            var entity = _enemyRepository.EnemyEntities[0];
             (_figure, _maxHitPoint, _enemyName, _damagePower)
                 = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower);
             _hitPoint.Value = _maxHitPoint;
         }
-
-        // private void Awake()
-        // {
-        //     _maxHitPoint = _enemyRepository.EnemyEntity.MaxHitPoint;
-        //     _hitPoint.Value = _maxHitPoint;
-        //     _enemyName = _enemyRepository.EnemyEntity.Name;
-        //     _damagePower = _enemyRepository.EnemyEntity.DamagePower;
-        // }
 
         public void TakeDamage(string playerName, int damagePoint)
         {

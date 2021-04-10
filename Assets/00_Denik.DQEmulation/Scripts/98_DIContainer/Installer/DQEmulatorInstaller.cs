@@ -26,11 +26,9 @@ namespace Denik.DQEmulation.Installer
         public override void InstallBindings()
         {
             // Resource Provider
-            Container.Bind(typeof(EnemyResourceProvider)).AsCached();
-            Container.Bind(typeof(PlayerResourceProvider)).AsCached();
-            Container.BindInterfacesAndSelfTo(typeof(BGMResourceProvider)).AsCached();
-            // 以下と同じ
-            // Container.Bind<PlayerRepository>().AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(EnemyRepository)).AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(PlayerRepository)).AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(BGMRepository)).AsCached();
 
             // Model
             Container.BindInterfacesAndSelfTo(typeof(EnemyModel)).FromInstance(_enemyModel).AsCached();
