@@ -5,8 +5,8 @@ namespace Denik.DQEmulation.Repository
 {
     public interface IBGMRepository
     {
-        List<AudioEntity> BGMEntities { get; }
-        AudioEntity GetBGMEntity(int index);
+        List<BGMEntity> BGMEntities { get; }
+        BGMEntity GetBGMEntity(int index);
         float Volume { get; }
     }
 }

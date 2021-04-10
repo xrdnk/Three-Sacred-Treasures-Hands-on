@@ -14,9 +14,9 @@ namespace Denik.DQEmulation.Repository
             _bgmData = bgmData;
         }
 
-        public List<AudioEntity> BGMEntities => _bgmData.AudioEntities;
+        public List<BGMEntity> BGMEntities => _bgmData.AudioEntities;
 
-        public AudioEntity GetBGMEntity(int index) => _bgmData.AudioEntities[index];
+        public BGMEntity GetBGMEntity(int index) => _bgmData.AudioEntities[index];
 
         public float Volume => _bgmData.Volume;
     }

@@ -8,17 +8,17 @@ namespace Denik.DQEmulation.Entity
     public class BGMData : ScriptableObject, IAudioData
     {
         [SerializeField]
-        private List<AudioEntity> _audioEntities = default;
+        private List<BGMEntity> _audioEntities = default;
 
         [SerializeField]
         private float _volume = 0.1f;
 
-        public List<AudioEntity> AudioEntities => _audioEntities;
+        public List<BGMEntity> AudioEntities => _audioEntities;
         public float Volume => _volume;
     }
 
     [Serializable]
-    public class AudioEntity : IAudioEntity
+    public class BGMEntity : IAudioEntity
     {
         [SerializeField]
         private string _name;
@@ -27,17 +27,5 @@ namespace Denik.DQEmulation.Entity
 
         public string Name => _name;
         public AudioClip Clip => _clip;
-    }
-
-    public interface IAudioEntity
-    {
-        string Name { get; }
-        AudioClip Clip { get; }
-    }
-
-    public interface IAudioData
-    {
-        List<AudioEntity> AudioEntities { get; }
-        float Volume { get; }
     }
 }

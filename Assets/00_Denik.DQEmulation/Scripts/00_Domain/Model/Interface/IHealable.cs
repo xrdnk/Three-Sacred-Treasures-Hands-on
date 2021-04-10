@@ -4,8 +4,8 @@ namespace Denik.DQEmulation.Model
 {
     public interface IHealable
     {
-        void Heal(int healPoint);
-        IObservable<(string, int)> OnHealedAsObservable();
         int HealPower { get; }
+        IObservable<(string, int)> OnHealedAsObservable();
+        void Heal(int healPoint);
     }
 }
