@@ -7,54 +7,54 @@ namespace Denik.DQEmulation.Model
 {
     public class EnemyModel : MonoBehaviour, IEnemy
     {
-        public IReadOnlyReactiveProperty<int> HitPoint => _hitPoint;
-        private ReactiveProperty<int> _hitPoint = new ReactiveProperty<int>();
+        public IReadOnlyReactiveProperty<float> HitPoint => _hitPoint;
+        private ReactiveProperty<float> _hitPoint = new ReactiveProperty<float>();
 
         public Sprite Figure => _figure;
         private Sprite _figure;
 
-        public int MaxHitPoint => _maxHitPoint;
-        private int _maxHitPoint;
+        public float MaxHitPoint => _maxHitPoint;
+        private float _maxHitPoint;
 
         public string Name => _enemyName;
         private string _enemyName;
 
-        public int DamagePower => _damagePower;
-        private int _damagePower;
+        public float AttackPower => _attackePower;
+        private float _attackePower;
 
         private EnemyRepository _enemyRepository;
 
-        public IObservable<(string, string, int)> OnDamagedAsObservable() => _damagedSubject;
-        private readonly Subject<(string playerName, string enemyName, int damagePoint)> _damagedSubject = new Subject<(string, string, int)>();
+        public IObservable<float> OnDamagedAsObservable() => _damagedSubject;
+        private readonly Subject<float> _damagedSubject = new Subject<float>();
 
-        public IObservable<(string, string)> OnDiedAsObservable() => _diedSubject;
-        private readonly Subject<(string enemyName, string playerName)> _diedSubject = new Subject<(string enemyName, string playerName)>();
+        public IObservable<string> OnDiedAsObservable() => _diedSubject;
+        private readonly Subject<string> _diedSubject = new Subject<string>();
 
         [Zenject.Inject]
         [VContainer.Inject]
         private void Construct(EnemyRepository enemyRepository)
         {
             _enemyRepository = enemyRepository;
-            var entity = _enemyRepository.EnemyEntities[0];
-            (_figure, _maxHitPoint, _enemyName, _damagePower)
-                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower);
+            var entity = _enemyRepository.GetEnemyEntity(0);
+            (_figure, _maxHitPoint, _enemyName, _attackePower)
+                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.AttackPower);
             _hitPoint.Value = _maxHitPoint;
         }
 
-        public void TakeDamage(string playerName, int damagePoint)
+        public void TakeDamage(string attackerName, float damagePoint)
         {
             _hitPoint.Value -= damagePoint;
-            _damagedSubject.OnNext((playerName, _enemyName, damagePoint));
+            _damagedSubject.OnNext(damagePoint);
 
             if (_hitPoint.Value <= 0)
             {
-                Die(playerName);
+                Die(attackerName);
             }
         }
 
-        private void Die(string playerName)
+        private void Die(string attackerName)
         {
-            _diedSubject.OnNext((_enemyName, playerName));
+            _diedSubject.OnNext(attackerName);
         }
     }
 }

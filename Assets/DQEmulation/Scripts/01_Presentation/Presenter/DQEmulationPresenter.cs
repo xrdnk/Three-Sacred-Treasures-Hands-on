@@ -18,9 +18,11 @@ namespace Denik.DQEmulation.Presenter
 
         [VContainer.Inject]
         [Zenject.Inject]
-        private void Construct
-            (PlayerModel playerModel, EnemyModel enemyModel, PlayerView playerView, EnemyView enemyView,
-            BGMPlayer bgmPlayer)
+        private void Construct(
+            PlayerModel playerModel, EnemyModel enemyModel,
+            PlayerView playerView, EnemyView enemyView,
+            BGMPlayer bgmPlayer
+            )
         {
             _playerModel = playerModel;
             _enemyModel = enemyModel;
@@ -49,45 +51,62 @@ namespace Denik.DQEmulation.Presenter
         private void Present()
         {
             // Enemy Model -> Views
+            // 敵の名前をViewに表示する
+            _enemyView.DisplayName(_enemyModel.Name);
+            // 敵の姿をViewに表示する
+            _enemyView.DisplayFigure(_enemyModel.Figure);
+            // 敵のHPをViewに表示する
             _enemyModel.HitPoint
                 .Subscribe(_enemyView.DisplayHp)
                 .AddTo(_compositeDisposable);
+            // 敵が攻撃を受けたことをViewに通知する
             _enemyModel.OnDamagedAsObservable()
-                .Subscribe(tuple => _enemyView.DisplayAttacked(tuple.Item1, tuple.Item2, tuple.Item3))
+                .Subscribe(damagedPoint => _enemyView.DisplayDamaged(damagedPoint))
                 .AddTo(_compositeDisposable);
+            // 敵が殺されたことをViewに通知する
             _enemyModel.OnDiedAsObservable()
-                .Subscribe(tuple => _enemyView.DisplayDied(tuple.Item1, tuple.Item2))
+                .Subscribe(attackerName => _enemyView.DisplayDied(attackerName))
                 .AddTo(_compositeDisposable);
 
             // Player Model -> Views
+            // プレイヤーの名前をViewに表示する
+            _playerView.DisplayName(_playerModel.Name);
+            // プレイヤーの姿をViewに表示する
+            _playerView.DisplayFigure(_playerModel.Figure);
+            // プレイヤーのHPをViewに表示する
             _playerModel.HitPoint
                 .Subscribe(_playerView.DisplayHp)
                 .AddTo(_compositeDisposable);
+            // プレイヤーが攻撃されたことをViewに通知する
             _playerModel.OnDamagedAsObservable()
-                .Subscribe(tuple => _playerView.DisplayAttacked(tuple.Item1, tuple.Item2, tuple.Item3))
+                .Subscribe(damagedPoint => _playerView.DisplayDamaged(damagedPoint))
                 .AddTo(_compositeDisposable);
+            // プレイヤーが死んだことをViewに通知する
             _playerModel.OnDiedAsObservable()
-                .Subscribe(tuple => _playerView.DisplayDied(tuple.Item1, tuple.Item2))
+                .Subscribe(attackerName => _playerView.DisplayDied(attackerName))
                 .AddTo(_compositeDisposable);
+            // プレイヤーが回復したことをViewに通知する
             _playerModel.OnHealedAsObservable()
-                .Subscribe(tuple => _playerView.DisplayHealed(tuple.Item1, tuple.Item2));
+                .Subscribe(healedPoint => _playerView.DisplayHealed(healedPoint))
+                .AddTo(_compositeDisposable);
 
             // Enemy View -> Models
+            // 敵が攻撃したことをModelに通知する
             _enemyView.OnAttackTriggerAsObservable()
-                .Subscribe(_ => _playerModel.TakeDamage(_enemyModel.Name, _enemyModel.DamagePower))
+                .Subscribe(attackerName => _playerModel.TakeDamage(attackerName, _enemyModel.AttackPower))
                 .AddTo(_compositeDisposable);
-            _enemyView.DisplayName(_enemyModel.Name);
-            _enemyView.DisplayFigure(_enemyModel.Figure);
 
             // Player View -> Models
+            // プレイヤーが攻撃したことを通知する
             _playerView.OnAttackTriggerAsObservable()
-                .Subscribe(_ => _enemyModel.TakeDamage(_playerModel.Name, _playerModel.DamagePower))
+                .Subscribe(attackerName => _enemyModel.TakeDamage(attackerName, _playerModel.AttackPower))
                 .AddTo(_compositeDisposable);
+            // プレイヤーが回復魔法を唱えたことを通知する
             _playerView.OnHealTriggerAsObservable()
-                .Subscribe(_ => _playerModel.Heal(_playerModel.HealPower));
-            _playerView.DisplayName(_playerModel.Name);
-            _playerView.DisplayFigure(_playerModel.Figure);
+                .Subscribe(_ => _playerModel.Heal(_playerModel.HealPower))
+                .AddTo(_compositeDisposable);
 
+            // 今回は一時的にここにBGM再生処理を行う
             _bgmPlayer.Play();
         }
 

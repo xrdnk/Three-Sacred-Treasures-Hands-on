@@ -16,5 +16,5 @@ MonoBehaviour:
   - _name: "\u52C7\u8005"
     _figure: {fileID: 21300000, guid: 422bf9fdea71fae4b9ae86bc25b67fb2, type: 3}
     _maxHitPoint: 250
-    _damagePower: 50
+    attackPower: 50
     _healPower: 100

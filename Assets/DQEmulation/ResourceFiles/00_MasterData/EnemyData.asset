@@ -15,5 +15,5 @@ MonoBehaviour:
   _enemyEntities:
   - _name: "\u9B54\u738B"
     _figure: {fileID: 21300000, guid: 7ae248008d391234e861948128c8ce14, type: 3}
-    _damagePower: 100
+    attackPower: 100
     _maxHitPoint: 500

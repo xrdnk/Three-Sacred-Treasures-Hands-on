@@ -7,32 +7,32 @@ namespace Denik.DQEmulation.Model
 {
     public class PlayerModel : MonoBehaviour, IPlayer
     {
-        public IReadOnlyReactiveProperty<int> HitPoint => _hitPoint;
-        private ReactiveProperty<int> _hitPoint = new ReactiveProperty<int>();
+        public IReadOnlyReactiveProperty<float> HitPoint => _hitPoint;
+        private ReactiveProperty<float> _hitPoint = new ReactiveProperty<float>();
 
         public Sprite Figure => _figure;
         private Sprite _figure;
 
-        public int MaxHitPoint => _maxHitPoint;
-        private int _maxHitPoint;
+        public float MaxHitPoint => _maxHitPoint;
+        private float _maxHitPoint;
 
         public string Name => _playerName;
         private string _playerName;
 
-        public int DamagePower => _damagePower;
-        private int _damagePower;
+        public float AttackPower => _damagePower;
+        private float _damagePower;
 
-        public int HealPower => _healPower;
-        private int _healPower;
+        public float HealPower => _healPower;
+        private float _healPower;
 
-        public IObservable<(string, int)> OnHealedAsObservable() => _healedSubject;
-        private Subject<(string, int)> _healedSubject = new Subject<(string, int)>();
+        public IObservable<float> OnHealedAsObservable() => _healedSubject;
+        private Subject<float> _healedSubject = new Subject<float>();
 
-        public IObservable<(string, string, int)> OnDamagedAsObservable() => _damagedSubject;
-        private Subject<(string, string, int)> _damagedSubject = new Subject<(string, string, int)>();
+        public IObservable<float> OnDamagedAsObservable() => _damagedSubject;
+        private Subject<float> _damagedSubject = new Subject<float>();
 
-        public IObservable<(string, string)> OnDiedAsObservable() => _diedSubject;
-        private Subject<(string, string)> _diedSubject = new Subject<(string, string)>();
+        public IObservable<string> OnDiedAsObservable() => _diedSubject;
+        private Subject<string> _diedSubject = new Subject<string>();
 
         private PlayerRepository _playerRepository;
 
@@ -41,32 +41,32 @@ namespace Denik.DQEmulation.Model
         private void Construct(PlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
-            var entity = _playerRepository.PlayerEntities[0];
+            var entity = _playerRepository.GetPlayerEntity(0);
             (_figure, _maxHitPoint, _playerName, _damagePower, _healPower)
-                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.DamagePower, entity.HealPower);
+                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.AttackPower, entity.HealPower);
             _hitPoint.Value = _maxHitPoint;
         }
 
-        public void TakeDamage(string enemyName, int damagePoint)
+        public void TakeDamage(string attackerName, float damagePoint)
         {
             _hitPoint.Value -= damagePoint;
-            _damagedSubject.OnNext((enemyName, _playerName, damagePoint));
+            _damagedSubject.OnNext(damagePoint);
 
             if (_hitPoint.Value <= 0)
             {
-                Die(enemyName);
+                Die(attackerName);
             }
         }
 
-        private void Die(string enemyName)
+        private void Die(string attackerName)
         {
-            _diedSubject.OnNext((_playerName, enemyName));
+            _diedSubject.OnNext(attackerName);
         }
 
-        public void Heal(int healPoint)
+        public void Heal(float healPoint)
         {
             _hitPoint.Value += healPoint;
-            _healedSubject.OnNext((_playerName, healPoint));
+            _healedSubject.OnNext(healPoint);
 
             if (_hitPoint.Value > _maxHitPoint)
             {

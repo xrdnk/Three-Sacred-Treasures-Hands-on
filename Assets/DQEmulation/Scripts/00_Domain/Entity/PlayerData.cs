@@ -21,16 +21,16 @@ namespace Denik.DQEmulation.Entity
         [SerializeField]
         private Sprite _figure;
         [SerializeField]
-        private int _maxHitPoint;
+        private float _maxHitPoint;
         [SerializeField]
-        private int _damagePower;
+        private float attackPower;
         [SerializeField]
-        private int _healPower;
+        private float _healPower;
 
         public string Name => _name;
         public Sprite Figure => _figure;
-        public int MaxHitPoint => _maxHitPoint;
-        public int DamagePower => _damagePower;
-        public int HealPower => _healPower;
+        public float MaxHitPoint => _maxHitPoint;
+        public float AttackPower => attackPower;
+        public float HealPower => _healPower;
     }
 }
