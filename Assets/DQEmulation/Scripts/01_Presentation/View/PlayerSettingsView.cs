@@ -20,7 +20,7 @@ namespace Denik.DQEmulation.View
                 .AddTo(this);
         }
 
-        public void AdjustSlider(float value)
+        public void AdjustBGMSlider(float value)
         {
             _slider.value = value;
         }

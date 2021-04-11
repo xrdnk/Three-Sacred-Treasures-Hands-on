@@ -29,7 +29,7 @@ namespace Denik.DQEmulation.Presenter
 
             _bgmPlayer.Volume
                 // .Select(DecibelExtension.DecibelToFloat)
-                .Subscribe(_playerSettingsView.AdjustSlider)
+                .Subscribe(_playerSettingsView.AdjustBGMSlider)
                 .AddTo(_compositeDisposable);
         }
 
