@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Denik.DQEmulation.Consts;
 using UniRx;
 using UnityEngine;
@@ -8,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Denik.DQEmulation.View
 {
-    public class PlayerView : MonoBehaviour, IAttackTrigger, IHealTrigger
+    public class PlayerView : MonoBehaviour, IPlayerView
     {
         [SerializeField]
         private Button _buttonAttack = default;
@@ -21,18 +19,18 @@ namespace Denik.DQEmulation.View
         [SerializeField]
         private Image _imageFigure = default;
 
-        private CancellationTokenSource cts = new CancellationTokenSource();
+        private string _playerName;
 
-        public IObservable<Unit> OnAttackTriggerAsObservable() => _attackTriggerSubject;
-        private Subject<Unit> _attackTriggerSubject = new Subject<Unit>();
+        public IObservable<string> OnAttackTriggerAsObservable() => _attackTriggerSubject;
+        private Subject<string> _attackTriggerSubject = new Subject<string>();
 
-        public IObservable<Unit> OnHealTriggerAsObservable() => _healTriggerSubject;
-        private Subject<Unit> _healTriggerSubject = new Subject<Unit>();
+        public IObservable<string> OnHealTriggerAsObservable() => _healTriggerSubject;
+        private Subject<string> _healTriggerSubject = new Subject<string>();
 
         private void Awake()
         {
             _buttonAttack.OnClickAsObservable()
-                .Subscribe(_ => _attackTriggerSubject.OnNext(Unit.Default))
+                .Subscribe(_ => _attackTriggerSubject.OnNext(_playerName))
                 .AddTo(this);
 
             // ボタン押下後，1秒間ボタン無効にする
@@ -41,43 +39,42 @@ namespace Denik.DQEmulation.View
                 .AddTo(this);
 
             _buttonHeal.OnClickAsObservable()
-                .Subscribe(_ => _healTriggerSubject.OnNext(Unit.Default))
+                .Subscribe(_ => _healTriggerSubject.OnNext(_playerName))
                 .AddTo(this);
         }
 
-        public void DisplayName(string enemyName)
-        {
-            _textName.text = string.Empty;
-            _textName.text = $"{enemyName}";
-        }
-
-        public void DisplayHp(int hp)
+        public void DisplayHp(float hp)
         {
             _textHp.text = string.Empty;
             _textHp.text = $"HP : {hp}";
         }
 
-        public async void DisplayAttacked(string playerName, string enemyName, int damagePoint)
+        public void DisplayName(string enemyName)
         {
-            Debug.Log($"{playerName} のこうげき！");
-            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND), cancellationToken: cts.Token);
-            Debug.Log($"{enemyName} に {damagePoint} のダメージ！");
-        }
-
-        public void DisplayDied(string playerName, string enemyName)
-        {
-            Debug.Log($"{playerName} は {enemyName} に倒されてしまった．");
-            gameObject.SetActive(false);
-        }
-
-        public void DisplayHealed(string playerName, int healPoint)
-        {
-            Debug.Log($"{playerName} は {healPoint} 回復した！");
+            _textName.text = string.Empty;
+            _playerName = enemyName;
+            _textName.text = $"{_playerName}";
         }
 
         public void DisplayFigure(Sprite figure)
         {
             _imageFigure.sprite = figure;
+        }
+
+        public void DisplayDamaged(float damagedPoint)
+        {
+            Debug.Log($"{_playerName} に {damagedPoint} のダメージ！");
+        }
+
+        public void DisplayHealed(float healedPoint)
+        {
+            Debug.Log($"{_playerName} は {healedPoint} 回復した！");
+        }
+
+        public void DisplayDied(string killedName)
+        {
+            Debug.Log($"{_playerName} は {killedName} に倒されてしまった... ");
+            gameObject.SetActive(false);
         }
     }
 }
