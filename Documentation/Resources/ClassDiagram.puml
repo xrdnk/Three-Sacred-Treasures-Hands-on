@@ -23,17 +23,17 @@ package DQEmulation #yellow
             {
                 Name : string
                 Figure : Sprite
-                MaxHitPoint : int
-                DamagePower : int
-                HealPower : int
+                MaxHitPoint : float
+                DamagePower : float
+                HealPower : float
             }
 
             class EnemyEntity
             {
                 Name : string
                 Figure : Sprite
-                MaxHitPoint : int
-                DamagePower : int
+                MaxHitPoint : float
+                DamagePower : float
             }
 
             class BGMEntity
@@ -88,27 +88,27 @@ package DQEmulation #yellow
             {
                 Name : string
                 Figure : Sprite
-                HitPoint : IRORP<int>
-                MaxHitPoint : int
+                HitPoint : IRORP<float>
+                MaxHitPoint : float
             }
 
             interface IDamageable
             {
-                DamagePower : int
-                OnDamageAsObservable() : IO<(string, string, int)>
-                TakeDamage(string, int)
+                DamagePower : float
+                OnDamageAsObservable() : IO<float>
+                TakeDamage(string attackerName, float damagePoint)
             }
 
             interface IDieable
             {
-                OnDiedAsObservable() : IO<(string , string)>
+                OnDiedAsObservable() : IO<string>
             }
 
             interface IHealable
             {
-                HealPower : int
-                OnHealedAsObservable() : IO<(string, int)>
-                Heal(int)
+                HealPower : float
+                OnHealedAsObservable() : IO<float>
+                Heal(float healedPoint))
             }
 
             interface IEnemy
@@ -139,32 +139,54 @@ package DQEmulation #yellow
     {
         package View #8EB8FF
         {
-            class PlayerView
+            interface IAttackTrigger
             {
-                + DisplayName(string)
-                + DisplayHp(int)
-                + DisplayAttacked(string, string, int)
-                + DisplayDied(string, string)
-                + DisplayHealed(string, int)
-                + DisplayFigure(Sprite)
+                OnAttackTriggerAsObservable() : IO<string>
             }
+
+            interface IHealTrigger
+            {
+                OnHealTriggerAsObservable() : IO<string>
+            }
+
+            interface ICreatureView
+            {
+                DisplayName(string name);
+                DisplayFigure(Sprite figure);
+                DisplayHp(float hp);
+            }
+
+            interface IDamagedView
+            {
+                DisplayDamaged(float damagedPoint);
+            }
+
+            interface IHealedView
+            {
+                DisplayHealed(float healedPoint);
+            }
+
+            interface IDiedView
+            {
+                DisplayDied(string killerName);
+            }
+
+            interface IPlayerView
+
+            interface IEnemyView
+
+            class PlayerView
 
             class EnemyView
-            {
-                + DisplayName(string)
-                + DisplayHp(int)
-                + DisplayAttacked(string, string, int)
-                + DisplayDied(string, string)
-                + DisplayFigure(Sprite)
-            }
 
-            class MessageView
-            {
-            }
+            'class MessageView
+            '{
+            '    + DisplayMessage(string message)
+            '}
 
             class PlayerSettingsView
             {
-                + AdjustSlider(float)
+                + AdjustBGMSlider(float volumeRate)
             }
         }
 
@@ -173,11 +195,6 @@ package DQEmulation #yellow
             class DQEmulationPresenter
 
             class PlayerSettingsPresenter
-        }
-
-        package ViewNavigator #DCC2FF
-        {
-            class ViewNavigator
         }
     }
 }
@@ -236,22 +253,29 @@ IBGMPlayer <|.le. BGMPlayer
 
 '' Presenter
 
-PlayerView <.up. DQEmulationPresenter
-PlayerModel <.le. DQEmulationPresenter
-EnemyView <.up. DQEmulationPresenter
-EnemyModel <.le. DQEmulationPresenter
-MessageView <.up. DQEmulationPresenter
+IPlayerView <.up. DQEmulationPresenter
+IPlayer <.up. DQEmulationPresenter
+IEnemyView <.up. DQEmulationPresenter
+IEnemy <.up. DQEmulationPresenter
+'MessageView <.up. DQEmulationPresenter
 
-PlayerSettingsView <.. PlayerSettingsPresenter
+PlayerSettingsView <.up. PlayerSettingsPresenter
 IBGMPlayer <.. PlayerSettingsPresenter
 
 '' View
 
-'' ViewNavigator
+IAttackTrigger <|.up. IPlayerView
+IHealTrigger <|.up. IPlayerView
+ICreatureView <|.up. IPlayerView
+IDamagedView <|.up. IPlayerView
+IHealedView <|.up. IPlayerView
+IDiedView <|.up. IPlayerView
+IPlayerView <|.le. PlayerView
 
-PlayerView <.. ViewNavigator
-EnemyView <.. ViewNavigator
-MessageView <.. ViewNavigator
-PlayerSettingsView <.. ViewNavigator
+IAttackTrigger <|.up. IEnemyView
+ICreatureView <|.up. IEnemyView
+IDamagedView <|.up. IEnemyView
+IDiedView <|.up. IEnemyView
+IEnemyView <|.ri. EnemyView
 
 @enduml
