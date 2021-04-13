@@ -23,16 +23,10 @@ namespace Denik.DQEmulation.Service
         public void Construct(IBGMRepository bgmRepository)
         {
             _bgmRepository = bgmRepository;
-        }
-
-        private void Awake()
-        {
             _audioSource = GetComponent<AudioSource>();
             _audioSource.Stop();
-            _audioSource.mute = false;
-            _audioSource.playOnAwake = false;
-            _audioSource.loop = true;
-            _audioSource.volume = _bgmRepository.Volume;
+            (_audioSource.mute, _audioSource.playOnAwake, _audioSource.loop, _audioSource.volume)
+                = (false, false, true, _bgmRepository.Volume);
 
             for (var i = 0; i < _bgmRepository.BGMEntities.Count; i++)
             {
