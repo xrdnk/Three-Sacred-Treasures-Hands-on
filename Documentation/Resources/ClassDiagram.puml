@@ -115,9 +115,9 @@ package DQEmulation #yellow
 
             interface IPlayer
 
-            class PlayerModel
+            class PlayerModel<MonoBehaviour>
 
-            class EnemyModel
+            class EnemyModel<MonoBehaviour>
         }
 
         package Service
@@ -131,7 +131,7 @@ package DQEmulation #yellow
                 AdjustVolume(float)
             }
 
-            class BGMPlayer
+            class BGMPlayer<MonoBehaviour>
         }
     }
 
@@ -175,16 +175,16 @@ package DQEmulation #yellow
 
             interface IEnemyView
 
-            class PlayerView
+            class PlayerView<MonoBehaviour>
 
-            class EnemyView
+            class EnemyView<MonoBehaviour>
 
             'class MessageView
             '{
             '    + DisplayMessage(string message)
             '}
 
-            class PlayerSettingsView
+            class PlayerSettingsView<MonoBehaviour>
             {
                 + AdjustBGMSlider(float volumeRate)
             }
