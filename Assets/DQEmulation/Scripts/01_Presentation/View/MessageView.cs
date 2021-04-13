@@ -1,21 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.UI;
 
 namespace Denik.DQEmulation.View
 {
     public class MessageView : MonoBehaviour
     {
         [SerializeField]
-        private int maxLogCount = 10;
+        private int maxLogCount = 2;
         [SerializeField]
-        private Rect logArea = new Rect(300, 100, 400, 400);
+        private Text textMessage = default;
 
         private readonly Queue<string> _logMessages = new Queue<string>();
         private readonly StringBuilder _stringBuilder = new StringBuilder();
 
         private void Start()
         {
+            textMessage.text = string.Empty;
             Application.logMessageReceived += LogReceived;
         }
 
@@ -27,19 +29,14 @@ namespace Denik.DQEmulation.View
             {
                 _logMessages.Dequeue();
             }
-        }
 
-        private void OnGUI()
-        {
             _stringBuilder.Length = 0;
-            GUI.skin.label.fontSize = 15;
-
             foreach (var message in _logMessages)
             {
                 _stringBuilder.Append(message).Append(System.Environment.NewLine);
             }
 
-            GUI.Label(logArea, _stringBuilder.ToString());
+            textMessage.text = _stringBuilder.ToString();
         }
     }
 }

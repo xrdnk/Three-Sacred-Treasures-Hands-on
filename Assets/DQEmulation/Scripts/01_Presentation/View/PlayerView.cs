@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Denik.DQEmulation.Consts;
 using UniRx;
 using UnityEngine;
@@ -27,19 +28,29 @@ namespace Denik.DQEmulation.View
         public IObservable<string> OnHealTriggerAsObservable() => _healTriggerSubject;
         private Subject<string> _healTriggerSubject = new Subject<string>();
 
+        private ReactiveProperty<bool> _sharedGate = new ReactiveProperty<bool>(true);
+
         private void Awake()
         {
-            _buttonAttack.OnClickAsObservable()
-                .Subscribe(_ => _attackTriggerSubject.OnNext(_playerName))
-                .AddTo(this);
-
             // ボタン押下後，1秒間ボタン無効にする
             _buttonAttack
-                .BindToOnClick(_ => Observable.Timer(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND)).AsUnitObservable())
+                .BindToOnClick(_sharedGate, _ =>
+                {
+                    Debug.Log($"{_playerName} の攻撃！");
+                    _attackTriggerSubject.OnNext(_playerName);
+                    return Observable.Timer(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND))
+                            .AsUnitObservable();
+                })
                 .AddTo(this);
 
-            _buttonHeal.OnClickAsObservable()
-                .Subscribe(_ => _healTriggerSubject.OnNext(_playerName))
+            _buttonHeal
+                .BindToOnClick(_sharedGate, _ =>
+                {
+                    Debug.Log($"{_playerName} は自身に回復を唱えた．");
+                    _healTriggerSubject.OnNext(_playerName);
+                    return Observable.Timer(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND))
+                        .AsUnitObservable();
+                })
                 .AddTo(this);
         }
 
@@ -61,18 +72,21 @@ namespace Denik.DQEmulation.View
             _imageFigure.sprite = figure;
         }
 
-        public void DisplayDamaged(float damagedPoint)
+        public async void DisplayDamaged(float damagedPoint)
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
             Debug.Log($"{_playerName} に {damagedPoint} のダメージ！");
         }
 
-        public void DisplayHealed(float healedPoint)
+        public async void DisplayHealed(float healedPoint)
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
             Debug.Log($"{_playerName} は {healedPoint} 回復した！");
         }
 
-        public void DisplayDied(string killedName)
+        public async void DisplayDied(string killedName)
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
             Debug.Log($"{_playerName} は {killedName} に倒されてしまった... ");
             gameObject.SetActive(false);
         }

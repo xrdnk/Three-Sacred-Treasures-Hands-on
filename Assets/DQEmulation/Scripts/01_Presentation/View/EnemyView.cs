@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Denik.DQEmulation.Consts;
 using UniRx;
 using UnityEngine;
@@ -25,7 +26,11 @@ namespace Denik.DQEmulation.View
         private void Awake()
         {
             _buttonAttack.OnClickAsObservable()
-                .Subscribe(_  => _attackTriggerSubject.OnNext(_enemyName))
+                .Subscribe(_  =>
+                {
+                    Debug.Log($"{_enemyName} の攻撃！");
+                    _attackTriggerSubject.OnNext(_enemyName);
+                })
                 .AddTo(this);
 
             // ボタン押下後，1秒間ボタン無効にする
@@ -52,13 +57,15 @@ namespace Denik.DQEmulation.View
             _imageFigure.sprite = figure;
         }
 
-        public void DisplayDamaged(float damagedPoint)
+        public async void DisplayDamaged(float damagedPoint)
         {
-            Debug.Log($"{_enemyName} は {damagedPoint} のダメージ！");
+            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
+            Debug.Log($"{_enemyName} に {damagedPoint} のダメージ！");
         }
 
-        public void DisplayDied(string killedName)
+        public async void DisplayDied(string killedName)
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(DQEmulatorConsts.DISPLAY_DELAY_SECOND));
             Debug.Log($"{_enemyName} は {killedName} に倒された．");
             gameObject.SetActive(false);
         }
