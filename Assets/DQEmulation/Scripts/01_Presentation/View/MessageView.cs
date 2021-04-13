@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Denik.DQEmulation.View
 {
+    /// <summary>
+    /// Debug.Logが処理される際に自動的に表示する
+    /// </summary>
     public class MessageView : MonoBehaviour
     {
         [SerializeField]

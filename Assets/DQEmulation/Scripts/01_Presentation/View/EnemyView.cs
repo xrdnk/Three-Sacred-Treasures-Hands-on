@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace Denik.DQEmulation.View
 {
+    /// <summary>
+    /// エネミー側のViewクラス
+    /// </summary>
     public class EnemyView : MonoBehaviour, IEnemyView
     {
         [SerializeField]
