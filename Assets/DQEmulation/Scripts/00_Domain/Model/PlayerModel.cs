@@ -34,11 +34,11 @@ namespace Denik.DQEmulation.Model
         public IObservable<string> OnDiedAsObservable() => _diedSubject;
         private Subject<string> _diedSubject = new Subject<string>();
 
-        private PlayerRepository _playerRepository;
+        private IPlayerRepository _playerRepository;
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(PlayerRepository playerRepository)
+        private void Construct(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
             var entity = _playerRepository.GetPlayerEntity(0);

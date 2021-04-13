@@ -22,7 +22,7 @@ namespace Denik.DQEmulation.Model
         public float AttackPower => _attackePower;
         private float _attackePower;
 
-        private EnemyRepository _enemyRepository;
+        private IEnemyRepository _enemyRepository;
 
         public IObservable<float> OnDamagedAsObservable() => _damagedSubject;
         private readonly Subject<float> _damagedSubject = new Subject<float>();
@@ -32,7 +32,7 @@ namespace Denik.DQEmulation.Model
 
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(EnemyRepository enemyRepository)
+        private void Construct(IEnemyRepository enemyRepository)
         {
             _enemyRepository = enemyRepository;
             var entity = _enemyRepository.GetEnemyEntity(0);

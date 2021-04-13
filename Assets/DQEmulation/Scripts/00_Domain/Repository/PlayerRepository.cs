@@ -17,6 +17,5 @@ namespace Denik.DQEmulation.Repository
         public List<PlayerEntity> PlayerEntities => _playerData.PlayerEntities;
 
         public PlayerEntity GetPlayerEntity(int index) => _playerData.PlayerEntities[index];
-
     }
 }
