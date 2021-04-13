@@ -10,19 +10,19 @@ This is Hands-on Example for UniRx, UniTask, Extenject. (Bonus: VContainer)
 
 * [UniRx 7.1.0](https://github.com/neuecc/UniRx)
 
-MIT : Copyright (c) 2018 Yoshifumi Kawai
+Copyright (c) 2018 Yoshifumi Kawai
 
 * [UniTask 2.2.4](https://github.com/Cysharp/UniTask)
 
-MIT : Copyright (c) 2019 Yoshifumi Kawai / Cysharp, Inc.
+Copyright (c) 2019 Yoshifumi Kawai / Cysharp, Inc.
 
 * [Zenject 9.2.0](https://github.com/modesttree/Zenject)
 
-MIT : Copyright (c) 2010-2021 Modest Tree Media Inc. ZENJECT and EXTENJECT are a trademark of Modest Tree Media Inc.
+Copyright (c) 2010-2021 Modest Tree Media Inc. ZENJECT and EXTENJECT are a trademark of Modest Tree Media Inc.
 
 * [VContainer 1.7.0](https://github.com/hadashiA/VContainer)
 
-MIT : Copyright (c) 2020 hadashiA
+Copyright (c) 2020 hadashiA
 
 ## Licence
 
