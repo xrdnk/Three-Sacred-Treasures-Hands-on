@@ -12,4 +12,4 @@ TBD
 
 ## Licence
 
-Unlicence
+MIT
