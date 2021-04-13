@@ -120,7 +120,7 @@ package DQEmulation #yellow
             class EnemyModel
         }
 
-        package UseCase
+        package Service
         {
             interface IBGMPlayer
             {

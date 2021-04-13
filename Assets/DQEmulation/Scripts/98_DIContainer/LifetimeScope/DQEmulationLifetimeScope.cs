@@ -47,7 +47,7 @@ namespace Denik.DQEmulation.LifetimeScopes
             builder.RegisterInstance(_enemyModel).AsImplementedInterfaces().AsSelf();
             builder.RegisterInstance(_playerModel).AsImplementedInterfaces().AsSelf();
 
-            // UseCase
+            // Service
             builder.RegisterInstance(_bgmPlayer).AsImplementedInterfaces().AsSelf();
 
             // View
