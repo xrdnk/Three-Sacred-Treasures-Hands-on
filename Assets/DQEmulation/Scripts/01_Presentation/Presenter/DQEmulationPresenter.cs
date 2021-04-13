@@ -6,7 +6,7 @@ using UniRx;
 
 namespace Denik.DQEmulation.Presenter
 {
-    public class DQEmulationPresenter : Zenject.IInitializable, VContainer.Unity.IPostStartable, IDisposable
+    public class DQEmulationPresenter : Zenject.IInitializable, VContainer.Unity.IStartable, IDisposable
     {
         private IPlayer _player;
         private IEnemy _enemy;
@@ -41,9 +41,10 @@ namespace Denik.DQEmulation.Presenter
         }
 
         /// <summary>
-        /// VContainer の Start()メソッド
+        /// VContainer.Start()メソッド
+        /// タイミング的に MonoBehaviour ライフサイクルにおける Start() より前に発動される
         /// </summary>
-        public void PostStart()
+        public void Start()
         {
             Present();
         }

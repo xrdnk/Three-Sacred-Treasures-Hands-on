@@ -1,12 +1,11 @@
 ﻿using System;
 using Denik.DQEmulation.Service;
 using Denik.DQEmulation.View;
-using Denik.DQEmulation.Extension;
 using UniRx;
 
 namespace Denik.DQEmulation.Presenter
 {
-    public class PlayerSettingsPresenter : Zenject.IInitializable, IDisposable
+    public class PlayerSettingsPresenter : Zenject.IInitializable, VContainer.Unity.IStartable, IDisposable
     {
         private BGMPlayer _bgmPlayer;
         private PlayerSettingsView _playerSettingsView;
@@ -14,6 +13,7 @@ namespace Denik.DQEmulation.Presenter
         private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         [Zenject.Inject]
+        [VContainer.Inject]
         public PlayerSettingsPresenter(BGMPlayer bgmPlayer, PlayerSettingsView playerSettingsView)
         {
             _bgmPlayer = bgmPlayer;
@@ -21,6 +21,16 @@ namespace Denik.DQEmulation.Presenter
         }
 
         public void Initialize()
+        {
+            Present();
+        }
+
+        public void Start()
+        {
+            Present();
+        }
+
+        private void Present()
         {
             _playerSettingsView.OnSliderMovedAsObservable()
                 // .Select(DecibelExtension.FloatToDecibel)
@@ -37,5 +47,7 @@ namespace Denik.DQEmulation.Presenter
         {
             _compositeDisposable.Dispose();
         }
+
+
     }
 }
