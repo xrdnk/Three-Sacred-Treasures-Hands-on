@@ -16,6 +16,7 @@ namespace Denik.DQEmulation.Installer
 
         public override void InstallBindings()
         {
+            // Entity
             Container.Bind<PlayerData>().FromInstance(_playerData).AsCached();
             Container.Bind<EnemyData>().FromInstance(_enemyData).AsCached();
             Container.Bind<BGMData>().FromInstance(bgmData).AsCached();

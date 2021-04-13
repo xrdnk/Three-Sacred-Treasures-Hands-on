@@ -25,7 +25,7 @@ namespace Denik.DQEmulation.Installer
 
         public override void InstallBindings()
         {
-            // Resource Provider
+            // Repository
             Container.BindInterfacesAndSelfTo(typeof(EnemyRepository)).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerRepository)).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(BGMRepository)).AsCached();
@@ -34,13 +34,13 @@ namespace Denik.DQEmulation.Installer
             Container.BindInterfacesAndSelfTo(typeof(EnemyModel)).FromInstance(_enemyModel).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerModel)).FromInstance(_playerModel).AsCached();
 
+            // UseCase
+            Container.BindInterfacesAndSelfTo(typeof(BGMPlayer)).FromInstance(_bgmPlayer).AsCached();
+
             // View
             Container.BindInterfacesAndSelfTo(typeof(EnemyView)).FromInstance(_enemyView).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerView)).FromInstance(_playerView).AsCached();
             Container.Bind(typeof(PlayerSettingsView)).FromInstance(_playerSettingsView).AsCached();
-
-            // Service
-            Container.BindInterfacesAndSelfTo(typeof(BGMPlayer)).FromInstance(_bgmPlayer).AsCached();
 
             // Presenter
             Container.Bind(typeof(DQEmulationPresenter), typeof(IInitializable))
