@@ -1,6 +1,6 @@
 ## Description
 
-TBD
+This is Hands-on Example for UniRx, UniTask, Extenject. (Bonus: VContainer)
 
 ## Dependencies
 
