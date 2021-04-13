@@ -34,11 +34,11 @@ RectTransform:
   m_Father: {fileID: 8517728081844892942}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -70, y: -150}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8517728081250027227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player Attack
+  m_Text: "\u3053\u3046\u3052\u304D"
 --- !u!1 &8517728081454814682
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,11 +232,11 @@ RectTransform:
   m_Father: {fileID: 8517728081844892942}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -25, y: 65}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8517728081454814679
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -313,11 +313,11 @@ RectTransform:
   m_Father: {fileID: 8517728081844892942}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -70, y: -190}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8517728081490992097
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -494,16 +494,16 @@ RectTransform:
   m_GameObject: {fileID: 8517728081950156590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_Children: []
   m_Father: {fileID: 8517728081844892942}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 300, y: 50}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -70, y: -40}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8517728081950156587
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player Heal
+  m_Text: "\u304B\u3044\u3075\u304F"
 --- !u!1 &8517728082834944664
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,11 +653,11 @@ RectTransform:
   m_Father: {fileID: 8517728081844892942}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 300, y: 30}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -25, y: 100}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8517728082834944661
 CanvasRenderer:
   m_ObjectHideFlags: 0
