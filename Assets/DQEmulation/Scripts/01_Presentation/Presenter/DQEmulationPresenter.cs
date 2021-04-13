@@ -57,7 +57,7 @@ namespace Denik.DQEmulation.Presenter
             // 敵の姿をViewに表示する
             _enemyView.DisplayFigure(_enemy.Figure);
             // 敵のHPをViewに表示する
-            _enemy.HitPoint
+            _enemy.CurrentHitPoint
                 .Subscribe(_enemyView.DisplayHp)
                 .AddTo(_compositeDisposable);
             // 敵が攻撃を受けたことをViewに通知する
@@ -75,7 +75,7 @@ namespace Denik.DQEmulation.Presenter
             // プレイヤーの姿をViewに表示する
             _playerView.DisplayFigure(_player.Figure);
             // プレイヤーのHPをViewに表示する
-            _player.HitPoint
+            _player.CurrentHitPoint
                 .Subscribe(_playerView.DisplayHp)
                 .AddTo(_compositeDisposable);
             // プレイヤーが攻撃されたことをViewに通知する
@@ -107,7 +107,7 @@ namespace Denik.DQEmulation.Presenter
                 .Subscribe(_ => _player.Heal(_player.HealPower))
                 .AddTo(_compositeDisposable);
 
-            // 今回は一時的にここにBGM再生処理を行う
+            // 今回は一時的にここでBGM再生処理を行う
             _bgmPlayer.Play();
         }
 

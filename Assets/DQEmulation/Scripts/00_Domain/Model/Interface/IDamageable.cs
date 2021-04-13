@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 
 namespace Denik.DQEmulation.Model
 {
@@ -19,5 +20,13 @@ namespace Denik.DQEmulation.Model
         /// <param name="attackerName">攻撃者の名前</param>
         /// <param name="damagePoint">攻撃者の攻撃力</param>
         void TakeDamage(string attackerName, float damagePoint);
+        /// <summary>
+        /// 現在のヒットポイント
+        /// </summary>
+        IReadOnlyReactiveProperty<float> CurrentHitPoint { get; }
+        /// <summary>
+        /// 最大のヒットポイント
+        /// </summary>
+        float MaxHitPoint { get; }
     }
 }

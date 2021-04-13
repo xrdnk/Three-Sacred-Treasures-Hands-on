@@ -7,7 +7,7 @@ namespace Denik.DQEmulation.Model
 {
     public class PlayerModel : MonoBehaviour, IPlayer
     {
-        public IReadOnlyReactiveProperty<float> HitPoint => _hitPoint;
+        public IReadOnlyReactiveProperty<float> CurrentHitPoint => _hitPoint;
         private ReactiveProperty<float> _hitPoint = new ReactiveProperty<float>();
 
         public Sprite Figure => _figure;
@@ -15,6 +15,8 @@ namespace Denik.DQEmulation.Model
 
         public float MaxHitPoint => _maxHitPoint;
         private float _maxHitPoint;
+
+        // MPのデータを持つようにしよう
 
         public string Name => _playerName;
         private string _playerName;
@@ -66,6 +68,9 @@ namespace Denik.DQEmulation.Model
         public void Heal(float healPoint)
         {
             _hitPoint.Value += healPoint;
+            // HP の TakeDamage と同じ要領で MP減少処理を加えよう
+            // 余裕があれば，MPが0になった時にボタンを非活性にする，回復を唱えることが出来ないメッセージなどを独自に加えよう
+
             _healedSubject.OnNext(healPoint);
 
             if (_hitPoint.Value > _maxHitPoint)

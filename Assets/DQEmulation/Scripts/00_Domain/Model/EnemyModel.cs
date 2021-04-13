@@ -7,7 +7,7 @@ namespace Denik.DQEmulation.Model
 {
     public class EnemyModel : MonoBehaviour, IEnemy
     {
-        public IReadOnlyReactiveProperty<float> HitPoint => _hitPoint;
+        public IReadOnlyReactiveProperty<float> CurrentHitPoint => _hitPoint;
         private ReactiveProperty<float> _hitPoint = new ReactiveProperty<float>();
 
         public Sprite Figure => _figure;

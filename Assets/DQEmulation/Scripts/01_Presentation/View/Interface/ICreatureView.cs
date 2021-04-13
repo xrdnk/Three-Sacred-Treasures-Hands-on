@@ -14,10 +14,5 @@ namespace Denik.DQEmulation.View
         /// </summary>
         /// <param name="figure"></param>
         void DisplayFigure(Sprite figure);
-        /// <summary>
-        /// HPを表示する
-        /// </summary>
-        /// <param name="hp"></param>
-        void DisplayHp(float hp);
     }
 }

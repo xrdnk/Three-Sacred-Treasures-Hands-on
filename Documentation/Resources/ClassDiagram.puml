@@ -88,8 +88,6 @@ package DQEmulation #yellow
             {
                 Name : string
                 Figure : Sprite
-                HitPoint : IRORP<float>
-                MaxHitPoint : float
             }
 
             interface IDamageable
@@ -97,6 +95,8 @@ package DQEmulation #yellow
                 DamagePower : float
                 OnDamageAsObservable() : IO<float>
                 TakeDamage(string attackerName, float damagePoint)
+                HitPoint : IRORP<float>
+                MaxHitPoint : float
             }
 
             interface IDieable
@@ -153,11 +153,11 @@ package DQEmulation #yellow
             {
                 DisplayName(string name);
                 DisplayFigure(Sprite figure);
-                DisplayHp(float hp);
             }
 
             interface IDamagedView
             {
+                DisplayHp(float hp);
                 DisplayDamaged(float damagedPoint);
             }
 

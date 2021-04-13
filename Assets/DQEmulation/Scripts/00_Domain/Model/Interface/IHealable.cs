@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx;
 
 namespace Denik.DQEmulation.Model
 {
@@ -18,5 +19,13 @@ namespace Denik.DQEmulation.Model
         /// </summary>
         /// <param name="healPoint">回復量</param>
         void Heal(float healPoint);
+        // /// <summary>
+        // /// 現在のマジックポイント
+        // /// </summary>
+        // IReadOnlyReactiveProperty<float> CurrentMagicPoint { get; }
+        // /// <summary>
+        // /// 最大のマジックポイント
+        // /// </summary>
+        // float MaxMagicPoint { get; }
     }
 }
