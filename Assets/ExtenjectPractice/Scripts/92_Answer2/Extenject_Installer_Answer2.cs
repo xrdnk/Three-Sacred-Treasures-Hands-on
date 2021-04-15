@@ -10,11 +10,10 @@ namespace Denik.ExtenjectPractice.Answer2
 
         public override void InstallBindings()
         {
-            // 今回，ModelもViewもMonoBehaviourを継承し，Hierarchy上にオブジェクトがあるため，
-            // BindInstance を利用して DI するクラスを Bind する
-            Container.Bind(typeof(Extenject_Model_Answer2)).AsCached();
+            Container.Bind<Extenject_Model_Answer2>().AsCached();
+            // こちらでもよい
+            // Container.Bind(typeof(Extenject_Model_Answer2)).AsCached();
             Container.BindInstance(_view).AsCached();
-            // NOTE : Installer の設定が完了したら，SceneContextのMonoInstallerに登録すること．登録して初めて動く．
         }
     }
 }
