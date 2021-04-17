@@ -4,7 +4,7 @@ This is Hands-on Example for UniRx, UniTask, Extenject. (Bonus: VContainer)
 
 ## Dependencies
 
-* Unity 2020.3.2f1
+* Unity 2020.3.4f1
 
 ## Third Party Assets
 
