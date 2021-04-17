@@ -51,9 +51,9 @@ namespace Denik.DQEmulation.LifetimeScopes
             builder.RegisterInstance(_bgmPlayer).AsImplementedInterfaces().AsSelf();
 
             // View
-            builder.RegisterComponent(_enemyView).AsImplementedInterfaces().AsSelf();
-            builder.RegisterComponent(_playerView).AsImplementedInterfaces().AsSelf();
-            builder.RegisterComponent(_playerSettingsView).AsSelf();
+            builder.RegisterInstance(_enemyView).AsImplementedInterfaces().AsSelf();
+            builder.RegisterInstance(_playerView).AsImplementedInterfaces().AsSelf();
+            builder.RegisterInstance(_playerSettingsView).AsSelf();
 
             // Presenter (EntryPoint)
             builder.RegisterEntryPoint<DQEmulationPresenter>(Lifetime.Scoped);
