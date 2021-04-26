@@ -11,7 +11,7 @@ namespace Denik.ExtenjectPractice.Question2
         public override void InstallBindings()
         {
             // Model の Bind を行う
-
+            Container.Bind<Extenject_Model_Question2>().AsCached();
             // View の Bind を行う
             Container.BindInstance(_view).AsCached();
         }

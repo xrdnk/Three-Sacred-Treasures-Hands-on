@@ -23,7 +23,8 @@ namespace Denik.DQEmulation.Entity
         [SerializeField]
         private float _maxHitPoint;
         // MP のデータを追加しよう
-        // private float _maxMagicPoint;
+        [SerializeField]
+        private float _maxMagicPoint;
         [SerializeField]
         private float attackPower;
         [SerializeField]
@@ -33,7 +34,7 @@ namespace Denik.DQEmulation.Entity
         public Sprite Figure => _figure;
         public float MaxHitPoint => _maxHitPoint;
         // MP のデータを取得するgetterを追加しよう
-        // public float MaxMagicPoint => _maxMagicPoint;
+        public float MaxMagicPoint => _maxMagicPoint;
         public float AttackPower => attackPower;
         public float HealPower => _healPower;
     }

@@ -18,11 +18,12 @@ namespace Denik.UniRxPractice.Question2
         private void Awake()
         {
             // ボタンを参照する
-
+            _button
                 // ボタンが押下された時を検知した時
-
+                .OnClickAsObservable()
                 // 購読し，HelloWorld表示イベントを発火
-
+                .Subscribe(_ => _onHelloWorldTrigger.OnNext(Unit.Default))
+                .AddTo(this);
         }
     }
 }

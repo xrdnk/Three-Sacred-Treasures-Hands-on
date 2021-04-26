@@ -20,8 +20,10 @@ namespace Denik.UniTaskPractice.Question2
         private void Start()
         {
             // Viewにあるダウンロードボタンの押下時、Modelに通知する
+            _progressView.OnDownloadButtonPushed.Subscribe(_ => _progressModel.DownloadContent());
 
             // Modelにある進捗率の値が変化した時、Viewに通知する
+            _progressModel.DownloadProgress.Subscribe(_progressView.DisplayProgress);
         }
     }
 }

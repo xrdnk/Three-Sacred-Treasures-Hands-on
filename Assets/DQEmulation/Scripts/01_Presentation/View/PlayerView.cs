@@ -18,7 +18,8 @@ namespace Denik.DQEmulation.View
         [SerializeField]
         private Text _textHp = default;
         // MP 表示用の Text を作成しよう
-        // private Text _textMp;
+        [SerializeField]
+        private Text _textMp = default;
         [SerializeField]
         private Image _imageFigure = default;
 
@@ -63,10 +64,11 @@ namespace Denik.DQEmulation.View
         }
 
         // MP を表示しよう
-        // public void DisplayMp(float mp)
-        // {
-        //
-        // }
+        public void DisplayMp(float mp)
+        {
+            _textMp.text = string.Empty;
+            _textMp.text = $"MP : {mp}";
+        }
 
         public void DisplayName(string enemyName)
         {

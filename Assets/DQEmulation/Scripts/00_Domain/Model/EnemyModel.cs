@@ -1,5 +1,6 @@
 ﻿using System;
 using Denik.DQEmulation.Repository;
+using Denik.DQEmulation.Service;
 using UniRx;
 using UnityEngine;
 
@@ -30,19 +31,25 @@ namespace Denik.DQEmulation.Model
         public IObservable<string> OnDiedAsObservable() => _diedSubject;
         private readonly Subject<string> _diedSubject = new Subject<string>();
 
+        private ISFXPlayer _sfxPlayer;
+
         [Zenject.Inject]
         [VContainer.Inject]
-        private void Construct(IEnemyRepository enemyRepository)
+        private void Construct(IEnemyRepository enemyRepository, ISFXPlayer sfxPlayer)
         {
             _enemyRepository = enemyRepository;
             var entity = _enemyRepository.GetEnemyEntity(0);
             (_figure, _maxHitPoint, _enemyName, _attackePower)
                 = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.AttackPower);
             _hitPoint.Value = _maxHitPoint;
+
+            _sfxPlayer = sfxPlayer;
         }
 
         public void TakeDamage(string attackerName, float damagePoint)
         {
+            _sfxPlayer.Play("Attack");
+
             _hitPoint.Value -= damagePoint;
             _damagedSubject.OnNext(damagePoint);
 

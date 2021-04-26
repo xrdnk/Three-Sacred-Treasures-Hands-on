@@ -4,21 +4,22 @@ using UnityEngine;
 
 namespace Denik.DQEmulation.Entity
 {
-    [CreateAssetMenu(fileName = nameof(BGMData), menuName = "DQEmulation/" + nameof(BGMData))]
-    public class BGMData : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(SFXData), menuName = "DQEmulation/" + nameof(SFXData))]
+
+    public class SFXData : ScriptableObject
     {
         [SerializeField]
-        private List<BGMEntity> _audioEntities = default;
+        private List<SFXEntity> _audioEntities = default;
 
         [SerializeField]
         private float _volume = 0.1f;
 
-        public List<BGMEntity> AudioEntities => _audioEntities;
+        public List<SFXEntity> AudioEntities => _audioEntities;
         public float Volume => _volume;
     }
 
     [Serializable]
-    public class BGMEntity : IAudioEntity
+    public class SFXEntity : IAudioEntity
     {
         [SerializeField]
         private string _name;

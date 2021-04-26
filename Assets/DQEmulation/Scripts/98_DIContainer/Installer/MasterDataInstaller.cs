@@ -14,12 +14,15 @@ namespace Denik.DQEmulation.Installer
         [SerializeField]
         private BGMData bgmData = default;
 
+        [SerializeField] private SFXData _sfxData = default;
+
         public override void InstallBindings()
         {
             // Entity
             Container.Bind<PlayerData>().FromInstance(_playerData).AsCached();
             Container.Bind<EnemyData>().FromInstance(_enemyData).AsCached();
             Container.Bind<BGMData>().FromInstance(bgmData).AsCached();
+            Container.Bind<SFXData>().FromInstance(_sfxData).AsCached();
         }
     }
 }

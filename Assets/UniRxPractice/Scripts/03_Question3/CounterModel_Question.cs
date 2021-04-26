@@ -17,11 +17,12 @@ namespace Denik.UniRxPractice.Question3
         private void Awake()
         {
             // Viewを参照する
-
+            _view
                 // ViewからCountイベントの発火が通知された時
-
+                .OnCountAsObservable()
                 // 発行し，カウンタのインクリメント処理を実行する
-
+                .Subscribe(_ => IncrementCount())
+                .AddTo(this);
         }
 
         /// <summary>

@@ -25,7 +25,6 @@ namespace Denik.UniRxPractice.Answer1
                 // MonoBehaviour クラスが破棄された時，このSubscribeも自動的に破棄できる．
                 .AddTo(this);
 
-
             // OnHelloWorldTrigger が発火された時
             _onHelloWorldTrigger
                 // 購読し，Debug.Log で表示する

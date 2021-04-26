@@ -1,22 +1,25 @@
-﻿using UniRx;
-using UnityEngine;
-using Zenject;
+﻿using System;
+using UniRx;
+using VContainer;
+using VContainer.Unity;
 
 namespace Denik.ExtenjectPractice.Question2
 {
-    public class Extenject_Presenter_Question2 : MonoBehaviour
+    public class Extenject_Presenter_Question2 : IStartable, IDisposable
     {
         private Extenject_Model_Question2 _model;
         private Extenject_View_Question2 _view;
 
         [Inject]
-        private void Construct(Extenject_Model_Question2 model, Extenject_View_Question2 view)
+        private Extenject_Presenter_Question2(Extenject_Model_Question2 model, Extenject_View_Question2 view)
         {
             _model = model;
             _view = view;
         }
 
-        private void Awake()
+        private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+
+        void IStartable.Start()
         {
             // Viewを参照する
             _view
@@ -24,7 +27,7 @@ namespace Denik.ExtenjectPractice.Question2
                 .OnCountAsObservable()
                 // 購読し，Modelにインクリメントを通知する
                 .Subscribe(_ => _model.IncrementCount())
-                .AddTo(this);
+                .AddTo(_compositeDisposable);
 
             // Modelを参照する
             _model
@@ -32,7 +35,12 @@ namespace Denik.ExtenjectPractice.Question2
                 .Counter
                 // 値の変化をViewに通知する
                 .Subscribe(count => _view.DisplayCounter(count))
-                .AddTo(this);
+                .AddTo(_compositeDisposable);
+        }
+
+        public void Dispose()
+        {
+            _compositeDisposable?.Dispose();
         }
     }
 }

@@ -23,12 +23,15 @@ namespace Denik.DQEmulation.Installer
         [SerializeField]
         private PlayerSettingsView _playerSettingsView = default;
 
+        [SerializeField] private SFXPlayer _sfxPlayer = default;
+
         public override void InstallBindings()
         {
             // Repository
             Container.BindInterfacesAndSelfTo(typeof(EnemyRepository)).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(PlayerRepository)).AsCached();
             Container.BindInterfacesAndSelfTo(typeof(BGMRepository)).AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(SFXRepository)).AsCached();
 
             // Model
             Container.BindInterfacesAndSelfTo(typeof(EnemyModel)).FromInstance(_enemyModel).AsCached();
@@ -36,6 +39,7 @@ namespace Denik.DQEmulation.Installer
 
             // Service
             Container.BindInterfacesAndSelfTo(typeof(BGMPlayer)).FromInstance(_bgmPlayer).AsCached();
+            Container.BindInterfacesAndSelfTo(typeof(SFXPlayer)).FromInstance(_sfxPlayer).AsCached();
 
             // View
             Container.BindInterfacesAndSelfTo(typeof(EnemyView)).FromInstance(_enemyView).AsCached();

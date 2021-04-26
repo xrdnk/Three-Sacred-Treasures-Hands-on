@@ -9,12 +9,12 @@ namespace Denik.VContainerPractice.Question1
         [SerializeField] private HelloWorldScreen _screen;
         protected override void Configure(IContainerBuilder builder)
         {
-            // Hierarchy 上に実体があるので，RegisterInstance
-
-            // Plain C# Class なので，Register
-
-            // IStartable を実装しているので，RegisterEntryPoint
-
+            // Hierarchy 上に実体があるので，RegisterInstance : HelloWorldScreen
+            builder.RegisterInstance(_screen);
+            // Plain C# Class なので，Register : HelloWorldService
+            builder.Register<HelloWorldService>(Lifetime.Singleton);
+            // IStartable を実装しているので，RegisterEntryPoint : GamePresenter
+            builder.RegisterEntryPoint<GamePresenter>();
         }
     }
 }

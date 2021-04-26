@@ -15,3 +15,4 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: 1cd0e9fad473c3a4abf0bebca388432c, type: 2}
   _enemyData: {fileID: 11400000, guid: d6b35c01b4b21c549b4e8c610b18f637, type: 2}
   bgmData: {fileID: 11400000, guid: 3906b1f39cc1ade448ea569ce2d1db34, type: 2}
+  _sfxData: {fileID: 11400000, guid: 59561ff1de9907f4da02a2774d2f82ef, type: 2}

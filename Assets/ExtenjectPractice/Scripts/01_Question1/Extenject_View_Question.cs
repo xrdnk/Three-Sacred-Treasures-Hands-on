@@ -18,11 +18,12 @@ namespace Denik.ExtenjectPractice.Question1
         private void Awake()
         {
             // Buttonを参照する
-
+            _button
                 // ボタンが押下された時
-
+                .OnClickAsObservable()
                 // 購読し，カウンタを実行するイベントを発行する
-
+                .Subscribe(_ => _onCountTrigger.OnNext(Unit.Default))
+                .AddTo(this);
         }
 
         /// <summary>

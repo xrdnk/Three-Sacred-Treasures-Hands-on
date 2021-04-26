@@ -17,6 +17,11 @@ namespace Denik.DQEmulation.Model
         private float _maxHitPoint;
 
         // MPのデータを持つようにしよう
+        public IReadOnlyReactiveProperty<float> CurrentMagicPoint => _magicPoint;
+        private ReactiveProperty<float> _magicPoint = new ReactiveProperty<float>();
+
+        public float MaxMagicPoint => _maxMagicPoint;
+        private float _maxMagicPoint;
 
         public string Name => _playerName;
         private string _playerName;
@@ -44,9 +49,10 @@ namespace Denik.DQEmulation.Model
         {
             _playerRepository = playerRepository;
             var entity = _playerRepository.GetPlayerEntity(0);
-            (_figure, _maxHitPoint, _playerName, _damagePower, _healPower)
-                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.AttackPower, entity.HealPower);
+            (_figure, _maxHitPoint, _playerName, _damagePower, _healPower, _maxMagicPoint)
+                = (entity.Figure, entity.MaxHitPoint, entity.Name, entity.AttackPower, entity.HealPower, entity.MaxMagicPoint);
             _hitPoint.Value = _maxHitPoint;
+            _magicPoint.Value = _maxMagicPoint;
         }
 
         public void TakeDamage(string attackerName, float damagePoint)
@@ -67,17 +73,24 @@ namespace Denik.DQEmulation.Model
 
         public void Heal(float healPoint)
         {
-            _hitPoint.Value += healPoint;
             // HP の TakeDamage と同じ要領で MP減少処理を加えよう
             // 余裕があれば，MPが0になった時にボタンを非活性にする，回復を唱えることが出来ないメッセージなどを独自に加えよう
-
-            _healedSubject.OnNext(healPoint);
-
-            if (_hitPoint.Value > _maxHitPoint)
+            if (_magicPoint.Value <= 0)
             {
-                _hitPoint.Value = _maxHitPoint;
+                Debug.Log("MPがゼロです．");
+                _magicPoint.Value = 0;
+            }
+            else
+            {
+                _magicPoint.Value -= 50;
+                _hitPoint.Value += healPoint;
+                _healedSubject.OnNext(healPoint);
+
+                if (_hitPoint.Value > _maxHitPoint)
+                {
+                    _hitPoint.Value = _maxHitPoint;
+                }
             }
         }
-
     }
 }

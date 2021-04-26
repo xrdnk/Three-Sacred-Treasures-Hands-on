@@ -22,7 +22,7 @@ namespace Denik.VContainerPractice.Question1
 
         // MonoBehaviour を継承してないので，
         // VContainer.Unity.IStartable を実装することで，
-        // 疑似的に Start() を呼び出す
+        // // 疑似的に Start() を呼び出す
         void IStartable.Start()
         {
             _helloWorldScreen.OnButtonPushedAsObservable()

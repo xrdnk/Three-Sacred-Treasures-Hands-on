@@ -16,8 +16,21 @@ namespace Denik.UniTaskPractice.Question1
 
         private async UniTask<float> HogeAsync()
         {
-            // Coroutine のスクリプトを UniTask 2 版にする
-            return 0f;
+            Debug.Log("1秒待ちます．");
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
+
+            Debug.Log("1秒経ちました．3秒経過後フラグをtrueにします．");
+
+            await UniTask.Delay(TimeSpan.FromSeconds(3.0f));
+
+            _flag = true;
+
+            await UniTask.WaitUntil(() => _flag);
+
+            Debug.Log("フラグがtrueになりました．");
+
+            return 4.0f;
         }
 
         private void OnFinished(float time)

@@ -39,14 +39,12 @@ namespace Denik.UniTaskPractice.Question2
         private async UniTask<string> DownloadTextAsync(string url)
         {
             using var uwr = UnityWebRequest.Get(url);
-            // 仮置きのUniTask
-            await UniTask.Yield();
             // 送受信開始
-
-                        // 値の変化を設定
-
+            await uwr.SendWebRequest()
+                // 値の変化を設定
+                .ToUniTask(Progress.Create<float>(x => _downloadProgress.Value = x * 100),
                     // cancellationToken: のラベルはつけること
-
+                    cancellationToken: _token);
             // エラーハンドリング
             if (uwr.isNetworkError || uwr.isHttpError) throw new Exception(uwr.error);
             // ダウンロードしたコンテンツのテキストデータを返す

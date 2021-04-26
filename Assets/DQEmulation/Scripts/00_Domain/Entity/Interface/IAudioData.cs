@@ -2,9 +2,9 @@
 
 namespace Denik.DQEmulation.Entity
 {
-    public interface IAudioData
-    {
-        List<BGMEntity> AudioEntities { get; }
-        float Volume { get; }
-    }
+    // public interface IAudioData
+    // {
+    //     List<BGMEntity> AudioEntities { get; }
+    //     float Volume { get; }
+    // }
 }

@@ -74,6 +74,11 @@ namespace Denik.DQEmulation.Presenter
             _playerView.DisplayName(_player.Name);
             // プレイヤーの姿をViewに表示する
             _playerView.DisplayFigure(_player.Figure);
+            // プレイヤーのMPをViewに表示する
+            _player.CurrentMagicPoint
+                .Subscribe(_playerView.DisplayMp)
+                .AddTo(_compositeDisposable);
+
             // プレイヤーのHPをViewに表示する
             _player.CurrentHitPoint
                 .Subscribe(_playerView.DisplayHp)
