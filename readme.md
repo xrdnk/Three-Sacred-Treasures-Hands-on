@@ -20,7 +20,7 @@ Copyright (c) 2019 Yoshifumi Kawai / Cysharp, Inc.
 
 Copyright (c) 2010-2021 Modest Tree Media Inc. ZENJECT and EXTENJECT are a trademark of Modest Tree Media Inc.
 
-* [VContainer 1.7.0](https://github.com/hadashiA/VContainer)
+* [VContainer 1.7.2](https://github.com/hadashiA/VContainer)
 
 Copyright (c) 2020 hadashiA
 
